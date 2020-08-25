@@ -1,0 +1,6 @@
+docker-image/
+k8s/
+venv/
+__pycache__/
+.idea/
+
