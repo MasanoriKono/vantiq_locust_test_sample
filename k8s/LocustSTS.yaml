@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: locust
+  annotations:
+    configmap.reloader.stakater.com/reload: "locust-param"
+spec:
+  selector:
+    matchLabels:
+      app: locust
+  serviceName: "locust"
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: locust
+    spec:
+      containers:
+        - name: locust
+          image: masanorikono/locusttest:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: VANTIQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: locust-param
+                  key: VANTIQ_HOST
+            - name: ACCESS_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: locust-param
+                  key: ACCESS_TOKEN
+            - name: GITHUB_REPO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: locust-param
+                  key: GITHUB_REPO_URL
+            - name: SCENARIO
+              valueFrom:
+                configMapKeyRef:
+                  name: locust-param
+                  key: SCENARIO
+      restartPolicy: Always

@@ -3,47 +3,61 @@ from locust.contrib.fasthttp import FastHttpUser
 import LocustUtil as Util
 
 
-# token = qAwgPMF-dKZYt-jMlCY2-2Mv3nO3bCF3yT-rDt6PjeQ=
-# URL = https://oheksfuji8.longnameofdomaintest.tk/
-# path = /api/v1/resources/topics//locust/input
-###
-# env POD_NAME=DUMMY_POD ACCESS_TOKEN=qAwgPMF-dKZYt-jMlCY2-2Mv3nO3bCF3yT-rDt6PjeQ= locust -H
-#     https://oheksfuji8.longnameofdomaintest.tk -f scenario-1.py --headless -u 20 -r 10
-
 # The instance of HttpUser can represent one sensor/device.
 class Device1(FastHttpUser):
     wait_time = between(1, 2)
-    random1 = Util.RandomGen(init_value=200, lower_limit=100, higher_limit=300, change=10)
+    random1 = Util.get_simple_random_sensor_data(init_value=200, min=100, max=300, increment=10, error_rate=0.1)
+    random1.set_failure_rate(20, 10)
 
     # instance of task can represent one type. (One device may send various data)
     @task
     def post_input(self):
 
-        # Send requests at Xth second of every minute.
-#        Util.wait_until_xth_second(20)
-
         json_data = {
-            "id": Util.get_id(self, "dev"),   # "dev-xxxxx-n"
+            "id": Util.get_id(self, "dev"),
             "value": self.random1.next_int(),
+            "seq": self.random1.get_message_seq(),
             "Time": Util.get_current_time()
         }
 
         response = self.client.post(
-            path="/api/v1/resources/topics//locust/input",
+            path="/api/v1/resources/topics//locust/input1",
             data=Util.get_json_with_size(json_data, 1000),
             auth=None,
             headers={"Authorization": "Bearer {}".format(Util.get_access_token()),
                      "Content-Type": "application/json"},
-            name="/locust/input"
+            name="/locust/input1"
         )
-
-#        print(response.request.headers)
-#        print("{}".format(json_data))
 
 
 class Device2(FastHttpUser):
     wait_time = between(1, 2)
-    random2 = Util.RandomGen(init_value=40, lower_limit=0, higher_limit=70, change=2)
+    random2 = Util.get_cyclic_random_sensor_data(init_elapsed_time=0, period=300, min=10, max=45, error_rate=0.1)
+
+    # instance of task can represent one type. (One device may send various data)
+    @task
+    def post_input(self):
+
+        json_data = {
+            "id": Util.get_id(self, "dev"),
+            "value": self.random2.next_value(),
+            "seq": self.random2.get_message_seq(),
+            "Time": Util.get_current_time()
+        }
+
+        response = self.client.post(
+            path="/api/v1/resources/topics//locust/input2",
+            data=Util.get_json_with_size(json_data, 1000),
+            auth=None,
+            headers={"Authorization": "Bearer {}".format(Util.get_access_token()),
+                     "Content-Type": "application/json"},
+            name="/locust/input2"
+        )
+
+
+class Device3(FastHttpUser):
+    wait_time = between(1, 2)
+    random3 = Util.get_diminishing_random_sensor_data(init_value=100, half_life_time=30, restart_time=120, error_rate=0.01)
 
     # instance of task can represent one type. (One device may send various data)
     @task
@@ -52,19 +66,21 @@ class Device2(FastHttpUser):
         # Send requests at Xth second of every minute.
 #        Util.wait_until_xth_second(10)
 
-        json_data = {
+        message = {
             "id": Util.get_id(self, "dev"),   # "dev-xxxxx-n"
-            "value": self.random2.next_value(),
+            "value": self.random3.next_value(),
+            "seq": self.random3.get_message_seq(),
             "Time": Util.get_current_time()
         }
+        json = Util.get_json_with_size(message, 1000)
 
         response = self.client.post(
-            path="/api/v1/resources/topics//locust/input",
-            data=Util.get_json_with_size(json_data, 1000),
+            path="/api/v1/resources/topics//locust/input3",
+            data=Util.get_json_with_size(message, 1000),
             auth=None,
             headers={"Authorization": "Bearer {}".format(Util.get_access_token()),
                      "Content-Type": "application/json"},
-            name="/locust/input"
+            name="/locust/input3"
         )
 
 #        print(response.request.headers)

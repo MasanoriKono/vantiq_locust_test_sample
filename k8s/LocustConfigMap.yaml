@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: locust-param
+data:
+  VANTIQ_HOST: "https://oheksfuji8.longnameofdomaintest.tk"
+  ACCESS_TOKEN: "hrheO2bVInk5bN4VDxLYyskl2qeBfq0ypK_CRnYHFP8="
+  GITHUB_REPO_URL: "https://github.com/MasanoriKono/vantiq_locust_test_sample.git"
+  SCENARIO: "scenario-2.py"
+  TEST_VERSION: "3"

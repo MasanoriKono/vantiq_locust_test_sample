@@ -1,6 +1,6 @@
-docker-image/
-k8s/
 venv/
 __pycache__/
 .idea/
-
+docker/run-local.txt
+*.zip
+sensitive/

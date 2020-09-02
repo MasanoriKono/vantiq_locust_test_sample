@@ -1,11 +1,14 @@
+import math
 import os
-import random
 import datetime
+import random
 import time
 import json
+import numpy as np
 
 # map to count the number of user instance by type.
 user_instance_map = {}
+
 
 def get_id(self, prefix):
     """
@@ -33,13 +36,17 @@ def get_id(self, prefix):
     return "{}-{}-{}-{}".format(prefix, get_pod_name(), class_name, instance_num)
 
 
+def get_current_timestamp():
+    jst = datetime.timezone(datetime.timedelta(hours=+9), 'JST')
+    return datetime.datetime.now(jst)
+
+
 def get_current_time():
     """
     Returns current timestamp in Japan time in ISO 8601.
     :return: String (ex. 2020-08-25T12:10:31.908265+09:00)
     """
-    jst = datetime.timezone(datetime.timedelta(hours=+9), 'JST')
-    return datetime.datetime.now(jst).isoformat()
+    return get_current_timestamp().isoformat()
 
 
 def get_pod_name():
@@ -86,24 +93,127 @@ def get_json_with_size(dict, n):
     return json.dumps(dict)
 
 
-class RandomGen:
+class GenericSimulator:
+    init_value = 0.0
+    init_time = 0
+    min = 0.0
+    max = 0.0
+    current = 0
+    error_rate = 0.02  # error included in the simulated sensor value
+    lambda_func = None
+    message_seq = 0
+    mttf = 0  # mean time to failure
+    mttr = 0  # mean time to recovery
+    next_failure_time = 0
+    restart_time = 0
+    next_restart_time = 0
 
-    init_value = 0
-    lower_limit = 0
-    higher_limit = 0
-    change = 0
-    current_value = 0
-
-    def __init__(self, init_value, lower_limit, higher_limit, change):
+    def __init__(self, init_value: float, _min: float, _max: float, error_rate: float, func):
         self.init_value = init_value
-        self.lower_limit = lower_limit
-        self.higher_limit = higher_limit
-        self.change = change
-        self.current_value = init_value
+        self.init_time = time.time()
+        self.min = _min
+        self.max = _max
+        self.error_rate = error_rate
+        self.lambda_func = func
 
     def next_value(self):
-        self.current_value += (random.random() - 0.5) * self.change * 2
-        return self.current_value
+
+        # simulate the broken device.
+        if self.next_failure_time != 0 and self.next_failure_time < time.time():
+            time.sleep(np.random.normal(self.mttr, self.mttr * 0.2, 1))
+            self.set_failure_rate(self.mttf, self.mttr)
+
+        # check whether to reset value.
+        if self.next_restart_time != 0 and self.next_restart_time < time.time():
+            self.current = self.init_value
+            self.init_time = time.time()
+            self.set_restart_time(self.restart_time)
+
+        elapsed_time = time.time() - self.init_time
+        self.current = self.lambda_func(elapsed_time, self.current)
+        # apply min and max
+        self.current = self.max if self.current > self.max else self.current
+        self.current = self.min if self.current < self.min else self.current
+        # add error
+        self.current += np.random.randn() * self.error_rate * self.init_value
+
+        # increment message sequence
+        self.message_seq += 1
+
+        return self.current
 
     def next_int(self):
         return int(self.next_value())
+
+    def get_message_seq(self):
+        return self.message_seq
+
+    def set_failure_rate(self, mttf: int, mttr: int):
+        '''
+        set failure rate. if set, the device will stop after MTTF until MTTR is elapsed.
+        :param mttf:  mean time to falire in seconds
+        :param mttr:  mean time to recovery in seconds
+        :return:
+        '''
+        sigma = mttf * 0.2
+        self.next_failure_time = np.random.normal(mttf, sigma, 1) + time.time()
+        self.mttf = mttf
+        self.mttr = mttr
+
+    def set_restart_time(self, restart_time: int):
+        '''
+        Set restart time. If the restart time has elapsed, then the current value is reset with initial value.
+        example:  recharging the battery, etc.
+        :param restart_time:
+        :return:
+        '''
+        self.next_restart_time = restart_time + time.time()
+        self.restart_time = restart_time
+
+
+def get_simple_random_sensor_data(init_value, min, max, increment, error_rate):
+    '''
+    Generate random value based on the previous state and increment.
+    example: temperature, wind, etc.
+    :param init_value:
+    :param min:
+    :param max:
+    :param increment:
+    :param error_rate: error value (init_value * error_rate) is added to returned value
+    :return:
+    '''
+    func = lambda elapsed_time, current: current + (random.random() - 0.5) * increment * 2
+    return GenericSimulator(init_value, min, max, error_rate, func)
+
+
+def get_cyclic_random_sensor_data(min: float, max: float, period: int, init_elapsed_time: int, error_rate: float):
+    '''
+    Generate random value based on the cycle.
+    example: temperature, light, that fluctuates in a day etc.
+    :type min: object
+    :param period:  length of the cycle in seconds.  if period is 1 day, let it be (3600 * 24) seconds
+    :param init_time: initial elapsed seconds.  if period is 1 day and init_time is 9:00 AM, then (3600 * 9) seconds
+    :param min:
+    :param max:
+    :param error_rate:
+    :return:
+    '''
+    func = lambda elapsed_time, current: \
+        (math.sin((elapsed_time + init_elapsed_time) / period * 2 * math.pi) + 1) \
+        / 2 * (max - min) + min
+    return GenericSimulator((max + min) / 2, min, max, error_rate, func)
+
+
+def get_diminishing_random_sensor_data(init_value: float, half_life_time: int, error_rate: float, restart_time: int):
+    '''
+    Generate random value based on
+    :param init_value:
+    :param half_life_time:
+    :param error_rate:
+    :param restart_time:
+    :return:
+    '''
+    func = lambda elapsed_time, current: init_value * math.pow(0.5, elapsed_time / half_life_time)
+    simulator = GenericSimulator(init_value, 0, init_value, error_rate, func)
+    simulator.set_restart_time(restart_time)
+    return simulator
