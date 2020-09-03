@@ -31,7 +31,7 @@ class Device1(FastHttpUser):
 
         # send data to target
         response = self.client.post(
-            path="/api/v1/resources/topics//locust/input1",
+            path="/api/v1/resources/topics//locust/input",
             data=Util.get_json_with_size(json_data, 1000),
             auth=None,
             headers={"Authorization": "Bearer {}".format(Util.get_access_token()),
@@ -63,7 +63,7 @@ class Device2(FastHttpUser):
         }
 
         response = self.client.post(
-            path="/api/v1/resources/topics//locust/input1",
+            path="/api/v1/resources/topics//locust/input",
             data=Util.get_json_with_size(json_data, 1000),
             auth=None,
             headers={"Authorization": "Bearer {}".format(Util.get_access_token()),
@@ -99,7 +99,7 @@ class Device3(FastHttpUser):
         json = Util.get_json_with_size(message, 1000)
 
         response = self.client.post(
-            path="/api/v1/resources/topics//locust/input1",
+            path="/api/v1/resources/topics//locust/input",
             data=Util.get_json_with_size(message, 1000),
             auth=None,
             headers={"Authorization": "Bearer {}".format(Util.get_access_token()),

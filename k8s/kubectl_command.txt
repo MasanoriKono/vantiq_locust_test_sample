@@ -1,4 +1,4 @@
-# deploy the loucsttest
+# deploy the loucst test
 cd k8s
 kubectl apply -f .
 
@@ -8,6 +8,9 @@ kubectl replace --force -f .
 # open locust console from terminal
 open http://localhost:30089
 
-# undeploy the locusttest
+# undeploy the locust test
 cd k8s
 kubectl delete -f .
+
+# connect to locust web via port-forward. (in the web browser, hit http://localhost:30089)
+kubectl port-forward locust-0 30089:8089

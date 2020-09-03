@@ -1,4 +1,4 @@
-FROM python:3.8-alpine as builder
+FROM python:3.8-alpine
 
 # build time dependencies
 RUN apk update && \
@@ -11,7 +11,8 @@ RUN apk update && \
         make \
         libzmq\
         git \
-        && pip install locust pyzmq \
+        bash \
+        && pip install locust pyzmq numpy \
         && apk del gcc g++ musl-dev libffi-dev make zeromq-dev
 
 RUN locust -V

@@ -17,7 +17,7 @@ def get_id(self, prefix):
     :param prefix: prefix for ID
     :return: string representing unique ID (prefix + pod name + class name + locust thread number)
     """
-    class_name = self.__class__.__name__
+    class_name = get_class_name(self)
     thread_id = self._greenlet.getcurrent()
     instance_mum = 0
 
@@ -35,6 +35,13 @@ def get_id(self, prefix):
 
     return "{}-{}-{}-{}".format(prefix, get_pod_name(), class_name, instance_num)
 
+def get_class_name(self):
+    '''
+    Returns the class name.
+    :param self:
+    :return:
+    '''
+    return self.__class__.__name__
 
 def get_current_timestamp():
     jst = datetime.timezone(datetime.timedelta(hours=+9), 'JST')
@@ -155,8 +162,7 @@ class GenericSimulator:
         :param mttr:  mean time to recovery in seconds
         :return:
         '''
-        sigma = mttf * 0.2
-        self.next_failure_time = np.random.normal(mttf, sigma, 1) + time.time()
+        self.next_failure_time = np.random.geometric(1.0 / mttf, 1) + time.time()
         self.mttf = mttf
         self.mttr = mttr
 
