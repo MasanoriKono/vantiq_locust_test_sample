@@ -6,5 +6,5 @@ data:
   VANTIQ_HOST: "https://oheksfuji8.longnameofdomaintest.tk"
   ACCESS_TOKEN: "s740AUthGvUKvl9qsrmvn1N7TFaMf5ZJqQzJhBojeMw="
   GITHUB_REPO_URL: "https://github.com/MasanoriKono/vantiq_locust_test_sample.git"
-  SCENARIO: "scenario-template.py"
+  SCENARIO: "scenario-3.py"
   TEST_VERSION: "3"
