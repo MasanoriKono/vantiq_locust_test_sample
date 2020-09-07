@@ -12,7 +12,7 @@ RUN apk update && \
         libzmq\
         git \
         bash \
-        && pip install locust pyzmq numpy \
+        && pip install locust pyzmq numpy paho-mqtt \
         && apk del gcc g++ musl-dev libffi-dev make zeromq-dev
 
 RUN locust -V

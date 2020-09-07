@@ -1,0 +1,5 @@
+{
+  "description" : "receives the input from locust",
+  "isReliable" : false,
+  "name" : "/locust/input2"
+}

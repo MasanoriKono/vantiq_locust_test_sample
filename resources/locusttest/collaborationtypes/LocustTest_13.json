@@ -1,0 +1,220 @@
+{
+  "active" : false,
+  "appType" : true,
+  "ars_properties" : {
+    "dataVersion" : 4,
+    "graph" : {
+      "lastZoomRequest" : 0,
+      "scale" : 0.964968152866242,
+      "translate" : [ 512.2944615843949, 33.80891719745222 ]
+    },
+    "groupSettings" : {
+      "appGroupOpenHash" : {
+        "actions" : true,
+        "filters" : true,
+        "flowControl" : true,
+        "math" : true,
+        "modifiers" : true
+      },
+      "ctGroupOpenHash" : {
+        "actions" : true,
+        "mobile" : true
+      },
+      "ctServiceOpen" : false,
+      "serviceGroupOpenHash" : { }
+    }
+  },
+  "assembly" : {
+    "CachedEnrich" : {
+      "configuration" : {
+        "associatedType" : "SensorDetails",
+        "childStreams" : [ "Procedure" ],
+        "foreignKeys" : [ {
+          "type" : "Property",
+          "value" : "sensorId"
+        } ],
+        "groupByWindow" : null,
+        "refreshInterval" : "30 seconds"
+      },
+      "description" : null,
+      "pattern" : "CachedEnrich",
+      "uuid" : "6751a443-72c9-45b7-834b-b98f87d6f000"
+    },
+    "InputRate" : {
+      "configuration" : {
+        "childStreams" : [ "TransformInputRate" ],
+        "enableBadging" : true,
+        "groupByWindow" : null,
+        "outputFrequency" : "1 second",
+        "rateInterval" : "1 second"
+      },
+      "description" : null,
+      "pattern" : "Rate",
+      "uuid" : "36ed62a1-3223-4e29-876f-23297270eddd"
+    },
+    "InputStream1" : {
+      "configuration" : {
+        "childStreams" : [ "Transformation", "InputRate" ],
+        "enableBadging" : true,
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/input3",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream",
+      "uuid" : "b97f8c82-fc3d-4660-8b3c-eb4b1e7f29d7"
+    },
+    "Procedure" : {
+      "configuration" : {
+        "childStreams" : [ "ThroughPutRate" ],
+        "procedure" : "merge_stream",
+        "schema" : null
+      },
+      "description" : null,
+      "pattern" : "Procedure",
+      "uuid" : "270063cb-35b8-40cb-b585-8dab8df4f52d"
+    },
+    "SaveThroughPut" : {
+      "configuration" : {
+        "childStreams" : null,
+        "enableBadging" : true,
+        "type" : "ThroughputRate",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "SaveToType",
+      "uuid" : "c723e382-3f6c-4d99-885d-628b295d8130"
+    },
+    "SaveToType" : {
+      "configuration" : {
+        "childStreams" : null,
+        "enableBadging" : true,
+        "type" : "LocustInputRate",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "SaveToType",
+      "uuid" : "65059a30-dc57-4ee2-8f05-0eb59a07621b"
+    },
+    "SplitByGroup" : {
+      "configuration" : {
+        "childStreams" : [ "CachedEnrich" ],
+        "groupBy" : "event.sensorId",
+        "groupByWindow" : "10 seconds",
+        "maxOpenGroups" : null
+      },
+      "description" : null,
+      "pattern" : "SplitByGroup",
+      "uuid" : "ef66403e-4b67-4608-8152-7d4c2c104c63"
+    },
+    "ThroughPutRate" : {
+      "configuration" : {
+        "childStreams" : [ "TransformThroughPut" ],
+        "enableBadging" : true,
+        "groupByWindow" : null,
+        "outputFrequency" : "1 second",
+        "rateInterval" : "1 second"
+      },
+      "description" : null,
+      "pattern" : "Rate",
+      "uuid" : "235a94b7-664e-42cf-861a-031ed7ae9243"
+    },
+    "TransformInputRate" : {
+      "configuration" : {
+        "childStreams" : [ "SaveToType" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInputRate",
+        "transformation" : {
+          "rate" : {
+            "expression" : "event.rate",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "now()",
+            "type" : "expression"
+          },
+          "topic_name" : {
+            "expression" : "\"/locust/input3\"",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation",
+      "uuid" : "ed30304c-1518-4d68-877e-0a8239d7feb4"
+    },
+    "TransformThroughPut" : {
+      "configuration" : {
+        "childStreams" : [ "SaveThroughPut" ],
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "ThroughputRate",
+        "transformation" : {
+          "process_name" : {
+            "expression" : "\"Locust13_CachedEnrich\"",
+            "type" : "expression"
+          },
+          "rate" : {
+            "expression" : "event.rate",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "now()",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation",
+      "uuid" : "48a24e8e-ddcc-49b5-8c5c-df99005a038a"
+    },
+    "Transformation" : {
+      "configuration" : {
+        "childStreams" : [ "SplitByGroup" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : null,
+        "transformation" : {
+          "sensorId" : {
+            "expression" : "event.id",
+            "type" : "expression"
+          },
+          "seq" : {
+            "expression" : "event.seq",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "event.time",
+            "type" : "expression"
+          },
+          "value" : {
+            "expression" : "event.value",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation",
+      "uuid" : "11faeb5b-f930-4ebd-92e0-8f80878ee63d"
+    }
+  },
+  "collaboratorRoles" : [ ],
+  "currentState" : {
+    "code" : "success"
+  },
+  "description" : "",
+  "disableBadging" : false,
+  "entityRoles" : [ ],
+  "keyTypes" : [ "system.collaborations" ],
+  "name" : "LocustTest_13"
+}

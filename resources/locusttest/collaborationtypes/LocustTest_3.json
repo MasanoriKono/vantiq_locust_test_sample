@@ -1,0 +1,183 @@
+{
+  "active" : false,
+  "appType" : true,
+  "ars_properties" : {
+    "dataVersion" : 4,
+    "graph" : {
+      "lastZoomRequest" : 0,
+      "scale" : 1.5644329896907216,
+      "translate" : [ 540.7322607925257, 53.190721649484544 ]
+    },
+    "groupSettings" : {
+      "appGroupOpenHash" : {
+        "actions" : true,
+        "filters" : true,
+        "flowControl" : true
+      },
+      "ctGroupOpenHash" : {
+        "actions" : true,
+        "mobile" : true
+      },
+      "ctServiceOpen" : false,
+      "serviceGroupOpenHash" : { }
+    },
+    "paletteWidth" : 170
+  },
+  "assembly" : {
+    "InputRate" : {
+      "configuration" : {
+        "childStreams" : [ "TransformInputRate" ],
+        "enableBadging" : true,
+        "groupByWindow" : null,
+        "outputFrequency" : "1 second",
+        "rateInterval" : "1 second"
+      },
+      "description" : null,
+      "pattern" : "Rate",
+      "uuid" : "9792c14c-8420-4db4-b3e6-9a408cf9d33d"
+    },
+    "InputStream" : {
+      "configuration" : {
+        "childStreams" : [ "TestTargetProcess", "InputRate" ],
+        "enableBadging" : true,
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/input3",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream",
+      "uuid" : "f39daf2e-6ab0-45a3-aafa-b358d2347562"
+    },
+    "SaveRate" : {
+      "configuration" : {
+        "childStreams" : null,
+        "enableBadging" : true,
+        "type" : "LocustInputRate",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "SaveToType",
+      "uuid" : "aac9ed5a-62ee-410c-8156-cc109438f780"
+    },
+    "SaveThroughput" : {
+      "configuration" : {
+        "childStreams" : [ ],
+        "enableBadging" : true,
+        "type" : "ThroughputRate",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "SaveToType",
+      "uuid" : "924659c7-fd05-4bbe-8f2a-8252152dde85"
+    },
+    "TestTargetProcess" : {
+      "configuration" : {
+        "childStreams" : [ "Throughput" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "transformation" : {
+          "id" : {
+            "expression" : "event.id",
+            "type" : "expression"
+          },
+          "seq" : {
+            "expression" : "event.seq",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "event.time",
+            "type" : "expression"
+          },
+          "value" : {
+            "expression" : "event.value",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation",
+      "uuid" : "9e1dbe14-7fb7-4b5a-9b31-a56cc6c3aba8"
+    },
+    "Throughput" : {
+      "configuration" : {
+        "childStreams" : [ "TransformThroughput" ],
+        "enableBadging" : true,
+        "groupByWindow" : null,
+        "outputFrequency" : "1 second"
+      },
+      "description" : null,
+      "pattern" : "Rate",
+      "uuid" : "b90f8bfe-4cb2-4809-8066-f6b367dda6d9"
+    },
+    "TransformInputRate" : {
+      "configuration" : {
+        "childStreams" : [ "SaveRate" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "transformation" : {
+          "rate" : {
+            "expression" : "event.rate",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "now()",
+            "type" : "expression"
+          },
+          "topic_name" : {
+            "expression" : "\"/locust/input3\"",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation",
+      "uuid" : "3dbb4c7d-8d7f-4966-abde-a2bba2541601"
+    },
+    "TransformThroughput" : {
+      "configuration" : {
+        "childStreams" : [ "SaveThroughput" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "ThroughputRate",
+        "transformation" : {
+          "process_name" : {
+            "expression" : "\"locust-3-Transform\"",
+            "type" : "expression"
+          },
+          "rate" : {
+            "expression" : "event.rate",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "now()",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation",
+      "uuid" : "cb3d1776-ec5d-463e-bdc6-3c719b622c06"
+    }
+  },
+  "collaboratorRoles" : [ ],
+  "currentState" : {
+    "code" : "success"
+  },
+  "description" : "",
+  "disableBadging" : false,
+  "entityRoles" : [ ],
+  "keyTypes" : [ "system.collaborations" ],
+  "name" : "LocustTest_3"
+}

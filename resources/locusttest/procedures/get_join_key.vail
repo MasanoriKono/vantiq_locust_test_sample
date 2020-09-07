@@ -1,0 +1,36 @@
+PROCEDURE get_join_key(device_id String)
+/*
+var pattern = "WindSensor|TemperatureSensor|BatterySensor"
+var strs = split(device_id, pattern) 
+var result = null
+if (strs != null && length(strs) >= 2) {
+    result = strs[0] + strs[1]
+} else{
+    result = "match not found"
+}
+return result
+*/
+
+// covert {previx}-{pod_name}-{device_name}-{seq} into {pefix}-{pod_name}-{seq}
+// device _id = dev-local-run-BatterySensor-5
+var myRegexp = "^(\w+)-([a-zA-Z_\-]+[^\-])-(\w+)-(\d+)"
+// var myRegexp = "dev"
+var result = null
+
+if (match(device_id,myRegexp)){
+    log.info("MATCH WAS FOUND")
+}
+ 
+var pattern = regExp(myRegexp)
+var matcher = pattern.matcher(device_id)
+if matcher {
+    var result = matcher.group(1) + "-" + matcher.group(2) + "-" + matcher.group(4)
+} else{
+    var result = "not mached"
+}
+ 
+log.info("{}", [result])  
+return result
+
+
+

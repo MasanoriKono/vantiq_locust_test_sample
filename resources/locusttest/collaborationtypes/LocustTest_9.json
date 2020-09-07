@@ -1,0 +1,297 @@
+{
+  "active" : false,
+  "appType" : true,
+  "ars_properties" : {
+    "dataVersion" : 4,
+    "graph" : {
+      "lastZoomRequest" : 0,
+      "scale" : 0.9666567134468,
+      "translate" : [ 333.832387777446, 32.836120234895986 ]
+    },
+    "groupSettings" : {
+      "appGroupOpenHash" : {
+        "actions" : true,
+        "filters" : true,
+        "flowControl" : true,
+        "math" : true
+      },
+      "ctGroupOpenHash" : {
+        "actions" : true,
+        "mobile" : true
+      },
+      "ctServiceOpen" : false,
+      "serviceGroupOpenHash" : { }
+    },
+    "paletteWidth" : 170
+  },
+  "assembly" : {
+    "EndSplit" : {
+      "configuration" : {
+        "childStreams" : [ "Merge" ],
+        "procedure" : "merge_stream",
+        "schema" : null
+      },
+      "description" : null,
+      "pattern" : "Procedure",
+      "uuid" : "f1fe6d3d-3e4a-492d-8b99-34868193b396"
+    },
+    "EndSplit2" : {
+      "configuration" : {
+        "childStreams" : [ "Merge" ],
+        "procedure" : "merge_stream",
+        "schema" : null
+      },
+      "description" : null,
+      "pattern" : "Procedure",
+      "uuid" : "bd8b8de7-94e4-4fdd-ae21-c3a36f1002d9"
+    },
+    "EndSplit3" : {
+      "configuration" : {
+        "childStreams" : [ "Merge" ],
+        "procedure" : "merge_stream",
+        "schema" : null
+      },
+      "description" : null,
+      "pattern" : "Procedure",
+      "uuid" : "65d89ba3-cddc-4b06-b4d4-56643eee4968"
+    },
+    "InputRate" : {
+      "configuration" : {
+        "childStreams" : [ "TransformInputRate" ],
+        "enableBadging" : true,
+        "groupByWindow" : null,
+        "outputFrequency" : "1 second",
+        "rateInterval" : "1 second"
+      },
+      "description" : null,
+      "pattern" : "Rate",
+      "uuid" : "ba05689d-a81c-4a00-940f-a531c6a54db2"
+    },
+    "InputStream1" : {
+      "configuration" : {
+        "childStreams" : [ "InputRate", "SplitWindByID" ],
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/input9/1",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream",
+      "uuid" : "5ebb5dc0-d309-400f-8c10-dc27c49aa428"
+    },
+    "InputStream2" : {
+      "configuration" : {
+        "childStreams" : [ "InputRate", "SplitTempByID" ],
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/input9/2",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream",
+      "uuid" : "c74a5c73-2f87-4ffc-8be6-d4a946606725"
+    },
+    "InputStream3" : {
+      "configuration" : {
+        "childStreams" : [ "InputRate", "SplitBatteryByID" ],
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/input9/3",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream",
+      "uuid" : "4ab45bbd-fca5-4bf8-9f3a-6218ff096f95"
+    },
+    "Merge" : {
+      "configuration" : {
+        "childStreams" : [ "Throughput" ],
+        "outboundResource" : null,
+        "outboundResourceConfig" : null,
+        "outboundResourceId" : null,
+        "upsert" : null
+      },
+      "description" : null,
+      "pattern" : "Merge",
+      "uuid" : "02ca022d-249a-4633-b024-df02e5742be2"
+    },
+    "MonitorBattery" : {
+      "configuration" : {
+        "childStreams" : [ "EndSplit3" ],
+        "condition" : "event.value < 9",
+        "duration" : "10 seconds",
+        "groupByWindow" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Dwell",
+      "uuid" : "585a8224-6d0e-480e-8d17-4465f913e6f3"
+    },
+    "MonitorTemp" : {
+      "configuration" : {
+        "childStreams" : [ "EndSplit2" ],
+        "condition" : "event.value < -8",
+        "duration" : "10 seconds",
+        "groupByWindow" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Dwell",
+      "uuid" : "c3c881ce-76cf-47e0-8bc7-121bc02e0d47"
+    },
+    "MonitorWind" : {
+      "configuration" : {
+        "childStreams" : [ "EndSplit" ],
+        "condition" : "event.value > 40",
+        "duration" : "10 seconds",
+        "groupByWindow" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Dwell",
+      "uuid" : "a49d2ac9-af47-4f9a-b3f9-568e726228a7"
+    },
+    "SaveRate" : {
+      "configuration" : {
+        "childStreams" : null,
+        "enableBadging" : true,
+        "type" : "LocustInputRate",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "SaveToType",
+      "uuid" : "28c2dffa-51fe-4d9a-8056-218bdab4188a"
+    },
+    "SaveThroughput" : {
+      "configuration" : {
+        "childStreams" : [ ],
+        "enableBadging" : true,
+        "type" : "ThroughputRate",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "SaveToType",
+      "uuid" : "525b46e9-8df6-443c-909c-9318b3adff88"
+    },
+    "SplitBatteryByID" : {
+      "configuration" : {
+        "childStreams" : [ "MonitorBattery" ],
+        "groupBy" : "event.id",
+        "groupByWindow" : "60 seconds",
+        "maxOpenGroups" : null
+      },
+      "description" : null,
+      "pattern" : "SplitByGroup",
+      "uuid" : "65a7e6ad-bf5a-4aab-888a-2d852895d446"
+    },
+    "SplitTempByID" : {
+      "configuration" : {
+        "childStreams" : [ "MonitorTemp" ],
+        "groupBy" : "event.id",
+        "groupByWindow" : "60 seconds",
+        "maxOpenGroups" : null
+      },
+      "description" : null,
+      "pattern" : "SplitByGroup",
+      "uuid" : "2af1b013-40f7-450b-8854-bd6076d27f76"
+    },
+    "SplitWindByID" : {
+      "configuration" : {
+        "childStreams" : [ "MonitorWind" ],
+        "groupBy" : "event.id",
+        "groupByWindow" : "60 seconds",
+        "maxOpenGroups" : null
+      },
+      "description" : null,
+      "pattern" : "SplitByGroup",
+      "uuid" : "e18baad0-7450-425d-8ccd-828052223eab"
+    },
+    "Throughput" : {
+      "configuration" : {
+        "childStreams" : [ "TransformThroughput" ],
+        "enableBadging" : true,
+        "groupByWindow" : null,
+        "outputFrequency" : "1 second"
+      },
+      "description" : null,
+      "pattern" : "Rate",
+      "uuid" : "88da572a-8dfe-45ea-86e3-691225b4760f"
+    },
+    "TransformInputRate" : {
+      "configuration" : {
+        "childStreams" : [ "SaveRate" ],
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "transformation" : {
+          "rate" : {
+            "expression" : "event.rate",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "now()",
+            "type" : "expression"
+          },
+          "topic_name" : {
+            "expression" : "\"/locust/input9\"",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation",
+      "uuid" : "aa38c9ae-7a6a-431f-8ad6-2936626de4ea"
+    },
+    "TransformThroughput" : {
+      "configuration" : {
+        "childStreams" : [ "SaveThroughput" ],
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "ThroughputRate",
+        "transformation" : {
+          "process_name" : {
+            "expression" : "\"LocustTest_9_Dwell\"",
+            "type" : "expression"
+          },
+          "rate" : {
+            "expression" : "event.rate",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "now()",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation",
+      "uuid" : "c7cdfffc-f5c6-4933-8618-00bd69fcb763"
+    }
+  },
+  "collaboratorRoles" : [ ],
+  "currentState" : {
+    "code" : "success"
+  },
+  "description" : "",
+  "disableBadging" : false,
+  "entityRoles" : [ ],
+  "keyTypes" : [ "system.collaborations" ],
+  "name" : "LocustTest_9"
+}

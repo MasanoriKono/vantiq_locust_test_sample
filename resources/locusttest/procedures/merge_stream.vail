@@ -1,0 +1,2 @@
+PROCEDURE merge_stream(event)
+return event

@@ -5,6 +5,8 @@ import random
 import time
 import json
 import numpy as np
+import paho.mqtt.client as mqtt
+
 
 # map to count the number of user instance by type.
 user_instance_map = {}
@@ -42,6 +44,7 @@ def get_class_name(self):
     :return:
     '''
     return self.__class__.__name__
+
 
 def get_current_timestamp():
     jst = datetime.timezone(datetime.timedelta(hours=+9), 'JST')
@@ -98,6 +101,76 @@ def get_json_with_size(dict, n):
     if len(str) < n:
         dict["DUMMY_FIELD"] = "DUMMY" * ((n - len(str)) // 5)
     return json.dumps(dict)
+
+def get_mqtt_username():
+    '''
+    returns the user name for MQTT connection.
+    :return:
+    '''
+    return os.getenv("MQTT_USERNAME")
+
+def get_mqtt_password():
+    '''
+    returns the password for MQTT connection.
+    :return:
+    '''
+    return os.getenv("MQTT_PASSWORD")
+
+def get_amqp_username():
+    '''
+    returns the user name for AMQP connection.
+    :return:
+    '''
+    return os.getenv("AMQP_USERNAME")
+
+def get_amqp_password():
+    '''
+    returns the password for AMQP connection.
+    :return:
+    '''
+    return os.getenv("AMQP_PASSWORD")
+
+def get_mqtt_endpoint():
+    '''
+    returns endpoint for MQTT connection.
+    :return:
+    '''
+    return os.getenv("MQTT_ENDPOINT")
+
+
+def get_mqtt_client():
+    '''
+    returns the instance of MQTT client
+    :return:
+    '''
+
+    if "mqtt_client" in user_instance_map:
+        return user_instance_map["mqtt_client"]
+    else:
+        mqtt_client = mqtt.Client(protocol=mqtt.MQTTv311)
+        mqtt_client.username_pw_set(get_mqtt_username(), get_mqtt_password())
+        mqtt_client.tls_set(None, None, None)
+        mqtt_client.tls_insecure_set(True)
+        user_instance_map["mqtt_client"] = mqtt_client
+        mqtt_client.connect(get_mqtt_endpoint(), 8883, keepalive=60)
+        mqtt_client.loop_start()
+        return mqtt_client
+'''
+    mqtt_client = mqtt.Client(protocol=mqtt.MQTTv311)
+    mqtt_client.username_pw_set(get_mqtt_username(), get_mqtt_password())
+    mqtt_client.tls_set(None, None, None)
+    mqtt_client.tls_insecure_set(True)
+    user_instance_map["mqtt_client"] = mqtt_client
+    mqtt_client.connect(get_mqtt_endpoint(), 8883, keepalive=60)
+    mqtt_client.loop_start()
+    return mqtt_client
+'''
+
+#        client.tls_set(CA_FILE_PATH,
+#                       certfile='xxxxxxx.pem',
+#                       keyfile='xxxxxxx.pem',
+#                       tls_version=ssl.PROTOCOL_TLSv1_2)
+#        client.tls_insecure_set(True)
 
 
 class GenericSimulator:

@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: locust
-  annotations:
-    configmap.reloader.stakater.com/reload: "locust-param"
 spec:
   selector:
     matchLabels:

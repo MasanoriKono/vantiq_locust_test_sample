@@ -1,0 +1,103 @@
+{
+  "active" : false,
+  "appType" : true,
+  "ars_properties" : {
+    "dataVersion" : 4,
+    "graph" : {
+      "lastZoomRequest" : 0,
+      "scale" : 2,
+      "translate" : [ 370.8031167328042, 118.95767195767198 ]
+    },
+    "groupSettings" : {
+      "appGroupOpenHash" : {
+        "actions" : true,
+        "filters" : true,
+        "flowControl" : true,
+        "math" : true,
+        "modifiers" : true
+      },
+      "ctGroupOpenHash" : {
+        "actions" : true,
+        "mobile" : true
+      },
+      "ctServiceOpen" : false,
+      "serviceGroupOpenHash" : { }
+    }
+  },
+  "assembly" : {
+    "LocustInputStream" : {
+      "configuration" : {
+        "childStreams" : [ "Transformation", "Rate" ],
+        "enableBadging" : true,
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/input",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : null,
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream",
+      "uuid" : "29677991-9e82-4b0f-8d08-dbda6ca04e84"
+    },
+    "Rate" : {
+      "configuration" : {
+        "childStreams" : null,
+        "groupByWindow" : null,
+        "outputFrequency" : "1 second",
+        "rateInterval" : "1 second"
+      },
+      "description" : null,
+      "pattern" : "Rate",
+      "uuid" : "9aa45bc0-f1e8-4568-8028-996b21887242"
+    },
+    "SaveToType" : {
+      "configuration" : {
+        "childStreams" : null,
+        "enableBadging" : true,
+        "type" : "LocustInput",
+        "upsert" : true
+      },
+      "description" : null,
+      "pattern" : "SaveToType",
+      "uuid" : "215e880c-5547-45d1-942e-5d816bc36f62"
+    },
+    "Transformation" : {
+      "configuration" : {
+        "childStreams" : [ "SaveToType" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : null,
+        "transformation" : {
+          "id" : {
+            "expression" : "event.id",
+            "type" : "expression"
+          },
+          "remarks" : {
+            "expression" : "event",
+            "type" : "expression"
+          },
+          "value" : {
+            "expression" : "event.value",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation",
+      "uuid" : "be4973c3-f9ec-4d5d-b202-36859973d085"
+    }
+  },
+  "collaboratorRoles" : [ ],
+  "currentState" : {
+    "code" : "success"
+  },
+  "description" : "",
+  "disableBadging" : false,
+  "entityRoles" : [ ],
+  "keyTypes" : [ "system.collaborations" ],
+  "name" : "LocustTest"
+}

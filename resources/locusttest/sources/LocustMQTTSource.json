@@ -1,0 +1,23 @@
+{
+  "activationConstraint" : "",
+  "active" : true,
+  "ars_properties" : null,
+  "config" : {
+    "cleanSession" : true,
+    "connectionTimeout" : 15,
+    "contentType" : "application/json",
+    "keepAliveInterval" : 15,
+    "maxInflight" : 10,
+    "password" : "Locust123456",
+    "passwordType" : "string",
+    "qos" : "AT_MOST_ONCE",
+    "serverURIs" : [ "mqtts://b-5c228d31-114c-45a4-b073-30541f5e4f9b-1.mq.us-east-2.amazonaws.com:8883" ],
+    "topics" : [ "locust", "/locust/mqtt/1" ],
+    "username" : "locust"
+  },
+  "direction" : "BOTH",
+  "messageType" : null,
+  "mockProcedures" : { },
+  "name" : "LocustMQTTSource",
+  "type" : "MQTT"
+}

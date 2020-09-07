@@ -1,0 +1,6 @@
+{
+  "description" : "topic to receive the input for test case 10-1",
+  "isReliable" : false,
+  "messageType" : "LocustInput",
+  "name" : "/locust/input10/1"
+}

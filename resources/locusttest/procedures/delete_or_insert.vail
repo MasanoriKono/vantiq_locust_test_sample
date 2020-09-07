@@ -1,0 +1,18 @@
+
+PROCEDURE delete_or_insert(event)
+
+
+var msg = {
+    id: event.id,
+    seq: event.seq,
+    value: event.value,
+    time: event.time
+}
+
+if (event.op == "INSERT") { 
+	INSERT Locust_INSERT_DELETE(msg)
+}
+else {
+	DELETE Locust_INSERT_DELETE where id == event.id
+}
+return msg

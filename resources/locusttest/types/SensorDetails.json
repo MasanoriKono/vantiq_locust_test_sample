@@ -1,0 +1,50 @@
+{
+  "adminAccessLevel" : "ars_readWrite",
+  "ars_properties" : {
+    "Description" : "Dataset to enrich Sensor Information"
+  },
+  "audited" : false,
+  "encapsulated" : false,
+  "expiresAfter" : null,
+  "foreignKeys" : null,
+  "groupBy" : "",
+  "groupEnabled" : false,
+  "groupRequired" : false,
+  "indexes" : [ {
+    "keys" : [ "machineId", "sensorId" ],
+    "options" : {
+      "unique" : true
+    }
+  } ],
+  "maxObjects" : 0,
+  "maxStorage" : 0,
+  "metadata" : false,
+  "name" : "SensorDetails",
+  "naturalKey" : [ "sensorId", "machineId" ],
+  "properties" : {
+    "location" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : false,
+      "type" : "GeoJSON",
+      "unique" : false
+    },
+    "machineId" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "String",
+      "unique" : false
+    },
+    "sensorId" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "String",
+      "unique" : false
+    }
+  },
+  "role" : "standard",
+  "userAccessLevel" : "ars_readOnly",
+  "volatile" : false
+}

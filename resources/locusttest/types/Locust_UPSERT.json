@@ -1,0 +1,76 @@
+{
+  "adminAccessLevel" : "ars_readWrite",
+  "ars_properties" : null,
+  "audited" : false,
+  "encapsulated" : false,
+  "expiresAfter" : "5 days",
+  "foreignKeys" : null,
+  "groupBy" : "",
+  "groupEnabled" : false,
+  "groupRequired" : false,
+  "indexes" : [ {
+    "keys" : [ "id" ],
+    "options" : {
+      "unique" : true
+    }
+  } ],
+  "maxObjects" : 0,
+  "maxStorage" : 0,
+  "metadata" : false,
+  "name" : "Locust_UPSERT",
+  "naturalKey" : [ "id" ],
+  "properties" : {
+    "DUMMY_FIELD" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : false,
+      "type" : "String",
+      "unique" : false
+    },
+    "id" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "String",
+      "unique" : false
+    },
+    "op" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : false,
+      "type" : "String",
+      "unique" : false
+    },
+    "remarks" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : false,
+      "type" : "Object",
+      "unique" : false
+    },
+    "seq" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : false,
+      "type" : "Integer",
+      "unique" : false
+    },
+    "time" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : false,
+      "type" : "DateTime",
+      "unique" : false
+    },
+    "value" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "Real",
+      "unique" : false
+    }
+  },
+  "role" : "standard",
+  "userAccessLevel" : "ars_readOnly",
+  "volatile" : false
+}

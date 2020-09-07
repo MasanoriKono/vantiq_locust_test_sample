@@ -1,0 +1,6 @@
+{
+  "description" : "receives the input from locust",
+  "isReliable" : false,
+  "messageType" : "LocustInput",
+  "name" : "/locust/input3"
+}
