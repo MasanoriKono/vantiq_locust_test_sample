@@ -11,6 +11,7 @@ git clone https://github.com/MasanoriKono/vantiq_locust_test_sample.git
 ```
 
 - import the folder `resources/locusttest` as VANTIQ project In VANTIQ IDE. 
+- import the data `resource/data/SensorDetails.json` as data in VANTIQ IDE.
 - generate VANTIQ access token from the namespace.
 - in the project root folder, run the command:
 ```shell script
@@ -45,6 +46,7 @@ locust -H https://<vantiq host> -f scenario-XX.py --headless -u 20 -r 10
 ### Run from kubenetes cluster
 
 - import the folder `resources/locusttest` as VANTIQ project In VANTIQ IDE. 
+- import the data `resource/data/SensorDetails.json` as data in VANTIQ IDE.
 - get VANTIQ access token from the namespace.
 - udpate config in `k8s/LocustConfigMap.yanl`
 ```yaml
