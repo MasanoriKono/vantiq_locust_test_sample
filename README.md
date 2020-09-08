@@ -45,6 +45,11 @@ locust -H https://<vantiq host> -f scenario-XX.py --headless -u 20 -r 10
 
 ### Run from kubenetes cluster
 
+- clone the project in the local.
+```bash
+git clone https://github.com/MasanoriKono/vantiq_locust_test_sample.git
+```
+- check the project into your own github account. 
 - import the folder `resources/locusttest` as VANTIQ project In VANTIQ IDE. 
 - import the data `resource/data/SensorDetails.json` as data in VANTIQ IDE.
 - get VANTIQ access token from the namespace.
@@ -57,7 +62,7 @@ metadata:
 data:
   VANTIQ_HOST: "<vantiq_host>"
   ACCESS_TOKEN: "<access_token>"
-  GITHUB_REPO_URL: "https://github.com/MasanoriKono/vantiq_locust_test_sample.git"
+  GITHUB_REPO_URL: "<your github repository>"
   SCENARIO: "scenario-XX.py"
   MQTT_USERNAME: "<mqtt_username>"
   MQTT_PASSWORD: "<mqtt_password>"
