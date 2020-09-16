@@ -1,0 +1,5 @@
+{
+  "description" : "input data for temperature",
+  "isReliable" : false,
+  "name" : "/locust/scenario/2"
+}

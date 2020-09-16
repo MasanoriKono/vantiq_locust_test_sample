@@ -11,6 +11,11 @@
   "groupEnabled" : false,
   "groupRequired" : false,
   "indexes" : [ {
+    "keys" : [ "sensorId" ],
+    "options" : {
+      "unique" : true
+    }
+  }, {
     "keys" : [ "machineId", "sensorId" ],
     "options" : {
       "unique" : true

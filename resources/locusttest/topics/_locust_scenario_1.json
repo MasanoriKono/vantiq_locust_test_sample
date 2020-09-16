@@ -1,0 +1,6 @@
+{
+  "description" : "input for wind sensor",
+  "isReliable" : false,
+  "messageType" : "LocustInput",
+  "name" : "/locust/scenario/1"
+}

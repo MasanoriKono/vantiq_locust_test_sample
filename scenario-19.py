@@ -29,7 +29,7 @@ class WindSensor(FastHttpUser):
             "time": Util.get_current_time()
         }
 
-        Util.wait_until_xth_second(20)
+        Util.wait_until_xth_second(60)
 
 
         # send data to target
@@ -58,7 +58,7 @@ class TemperatureSensor(FastHttpUser):
             dev = Util.get_cyclic_random_sensor_data(init_elapsed_time=0, period=300, min=-10, max=45, error_rate=0.1)
             device_instance[dev_id] = dev
 
-        Util.wait_until_xth_second(20)
+        Util.wait_until_xth_second(60)
 
         json_data = {
             "id": Util.get_id(self, "dev"),
@@ -100,7 +100,7 @@ class BatterySensor(FastHttpUser):
         }
         json = Util.get_json_with_size(message, 1000)
 
-        Util.wait_until_xth_second(20)
+        Util.wait_until_xth_second(60)
 
         response = self.client.post(
             path="/api/v1/resources/topics//locust/input19/3",
@@ -113,25 +113,3 @@ class BatterySensor(FastHttpUser):
 
 #        print(response.request.headers)
 #       print("{}".format(json_data))
-
-
-class CustomLoadTestShape(LoadTestShape):
-    time_limit = 3600
-    spawn_rate = 20
-    start_user = 1000
-    stage_increment = 1000
-    stage_duration = 300
-    cool_down_duration = 60
-
-    def tick(self):
-
-        run_time = self.get_run_time()
-
-        cycle = int(run_time) // (self.stage_duration + self.cool_down_duration)
-
-        if run_time % (self.stage_duration + self.cool_down_duration) < self.stage_duration:
-            user_count = self.start_user + cycle * self.stage_increment
-        else:
-            user_count = 0
-
-        return user_count, self.spawn_rate

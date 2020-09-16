@@ -1,0 +1,406 @@
+{
+  "active" : false,
+  "appType" : true,
+  "assembly" : {
+    "EnrichBattery" : {
+      "configuration" : {
+        "associatedType" : "SensorDetails",
+        "childStreams" : [ "join2" ],
+        "enableBadging" : true,
+        "foreignKeys" : [ {
+          "type" : "Property",
+          "value" : "sensorId"
+        } ],
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Enrich"
+    },
+    "EnrichTemp" : {
+      "configuration" : {
+        "associatedType" : "SensorDetails",
+        "childStreams" : [ "join1" ],
+        "enableBadging" : true,
+        "foreignKeys" : [ {
+          "type" : "Property",
+          "value" : "sensorId"
+        } ],
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Enrich"
+    },
+    "EnrichWind" : {
+      "configuration" : {
+        "associatedType" : "SensorDetails",
+        "childStreams" : [ "join1" ],
+        "enableBadging" : true,
+        "foreignKeys" : [ {
+          "type" : "Property",
+          "value" : "sensorId"
+        } ],
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Enrich"
+    },
+    "InputRate" : {
+      "configuration" : {
+        "childStreams" : [ "TransformInputRate" ],
+        "enableBadging" : true,
+        "groupByWindow" : null,
+        "outputFrequency" : "1 second",
+        "rateInterval" : "1 second"
+      },
+      "description" : null,
+      "pattern" : "Rate"
+    },
+    "InputStream1" : {
+      "configuration" : {
+        "childStreams" : [ "InputRate", "TransformWind" ],
+        "enableBadging" : true,
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/scenario/1",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream"
+    },
+    "InputStream2" : {
+      "configuration" : {
+        "childStreams" : [ "InputRate", "TransformTemp" ],
+        "enableBadging" : true,
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/scenario/2",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream"
+    },
+    "InputStream3" : {
+      "configuration" : {
+        "childStreams" : [ "InputRate", "TransformBattery" ],
+        "enableBadging" : true,
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/scenario/3",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream"
+    },
+    "MonitorAnomaly" : {
+      "configuration" : {
+        "childStreams" : [ "TerminateSplit" ],
+        "condition" : "event.battery < 20 && event.temperature < 0 && event.wind > 30",
+        "duration" : "30 seconds",
+        "enableBadging" : true,
+        "groupByWindow" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Dwell"
+    },
+    "SaveRate" : {
+      "configuration" : {
+        "childStreams" : null,
+        "enableBadging" : true,
+        "type" : "LocustInputRate",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "SaveToType"
+    },
+    "SaveThroughput" : {
+      "configuration" : {
+        "childStreams" : [ ],
+        "enableBadging" : true,
+        "type" : "ThroughputRate",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "SaveToType"
+    },
+    "SplitByID" : {
+      "configuration" : {
+        "childStreams" : [ "MonitorAnomaly" ],
+        "enableBadging" : true,
+        "groupBy" : "event.machineId",
+        "groupByWindow" : "60 seconds",
+        "maxOpenGroups" : null
+      },
+      "description" : null,
+      "pattern" : "SplitByGroup"
+    },
+    "TerminateSplit" : {
+      "configuration" : {
+        "childStreams" : [ "Throughput" ],
+        "enableBadging" : true,
+        "procedure" : "merge_stream",
+        "schema" : null
+      },
+      "description" : null,
+      "pattern" : "Procedure"
+    },
+    "Throughput" : {
+      "configuration" : {
+        "childStreams" : [ "TransformThroughput" ],
+        "enableBadging" : true,
+        "groupByWindow" : null,
+        "outputFrequency" : "1 second"
+      },
+      "description" : null,
+      "pattern" : "Rate"
+    },
+    "TransformBattery" : {
+      "configuration" : {
+        "childStreams" : [ "EnrichBattery" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : null,
+        "transformation" : {
+          "id" : {
+            "expression" : "event.id",
+            "type" : "expression"
+          },
+          "sensorId" : {
+            "expression" : "event.id",
+            "type" : "expression"
+          },
+          "seq" : {
+            "expression" : "event.seq",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "event.time",
+            "type" : "expression"
+          },
+          "value" : {
+            "expression" : "event.value",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation"
+    },
+    "TransformInputRate" : {
+      "configuration" : {
+        "childStreams" : [ "SaveRate" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "transformation" : {
+          "rate" : {
+            "expression" : "event.rate",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "now()",
+            "type" : "expression"
+          },
+          "topic_name" : {
+            "expression" : "\"/locust/input9\"",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation"
+    },
+    "TransformJoin" : {
+      "configuration" : {
+        "childStreams" : [ "SplitByID" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : null,
+        "transformation" : {
+          "battery" : {
+            "expression" : "event.EnrichBattery.value",
+            "type" : "expression"
+          },
+          "machineId" : {
+            "expression" : "event.EnrichBattery.SensorDetails.machineId",
+            "type" : "expression"
+          },
+          "temperature" : {
+            "expression" : "event.join1.EnrichTemp.value",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "now()",
+            "type" : "expression"
+          },
+          "wind" : {
+            "expression" : "event.join1.EnrichWind.value",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation"
+    },
+    "TransformTemp" : {
+      "configuration" : {
+        "childStreams" : [ "EnrichTemp" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : null,
+        "transformation" : {
+          "id" : {
+            "expression" : "event.id",
+            "type" : "expression"
+          },
+          "sensorId" : {
+            "expression" : "event.id",
+            "type" : "expression"
+          },
+          "seq" : {
+            "expression" : "event.seq",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "event.time",
+            "type" : "expression"
+          },
+          "value" : {
+            "expression" : "event.value",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation"
+    },
+    "TransformThroughput" : {
+      "configuration" : {
+        "childStreams" : [ "SaveThroughput" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "ThroughputRate",
+        "transformation" : {
+          "process_name" : {
+            "expression" : "\"scpf-perf-test-2\"",
+            "type" : "expression"
+          },
+          "rate" : {
+            "expression" : "event.rate",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "now()",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation"
+    },
+    "TransformWind" : {
+      "configuration" : {
+        "childStreams" : [ "EnrichWind" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : null,
+        "transformation" : {
+          "id" : {
+            "expression" : "event.id",
+            "type" : "expression"
+          },
+          "sensorId" : {
+            "expression" : "event.id",
+            "type" : "expression"
+          },
+          "seq" : {
+            "expression" : "event.seq",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "event.time",
+            "type" : "expression"
+          },
+          "value" : {
+            "expression" : "event.value",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation"
+    },
+    "join1" : {
+      "configuration" : {
+        "childStreams" : [ "join2" ],
+        "constraints" : [ {
+          "type" : "VAIL Expression",
+          "value" : "EnrichWind.SensorDetails.machineId == EnrichTemp.SensorDetails.machineId"
+        } ],
+        "enableBadging" : true,
+        "order" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "upsert" : false,
+        "withinDuration" : "20 seconds"
+      },
+      "description" : null,
+      "pattern" : "Join"
+    },
+    "join2" : {
+      "configuration" : {
+        "childStreams" : [ "TransformJoin" ],
+        "constraints" : [ {
+          "type" : "VAIL Expression",
+          "value" : "join1.EnrichWind.SensorDetails.machineId == EnrichBattery.SensorDetails.machineId"
+        } ],
+        "enableBadging" : true,
+        "order" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "upsert" : false,
+        "withinDuration" : "20 seconds"
+      },
+      "description" : null,
+      "pattern" : "Join"
+    }
+  },
+  "collaboratorRoles" : [ ],
+  "currentState" : {
+    "code" : "success"
+  },
+  "description" : "",
+  "disableBadging" : false,
+  "entityRoles" : [ ],
+  "keyTypes" : [ "system.collaborations" ],
+  "name" : "ScpfPerfTest2"
+}

@@ -1,0 +1,179 @@
+{
+  "active" : false,
+  "appType" : true,
+  "assembly" : {
+    "InputRate" : {
+      "configuration" : {
+        "childStreams" : [ "TransformInputRate" ],
+        "enableBadging" : true,
+        "groupByWindow" : null,
+        "outputFrequency" : "1 second",
+        "rateInterval" : "1 second"
+      },
+      "description" : null,
+      "pattern" : "Rate"
+    },
+    "InputStream1" : {
+      "configuration" : {
+        "childStreams" : [ "Transform", "InputRate" ],
+        "enableBadging" : true,
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/scenario/1",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream"
+    },
+    "InputStream2" : {
+      "configuration" : {
+        "childStreams" : [ "InputRate", "Transform" ],
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/scenario/2",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream"
+    },
+    "InputStream3" : {
+      "configuration" : {
+        "childStreams" : [ "InputRate", "Transform" ],
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/locust/scenario/3",
+        "op" : null,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "EventStream"
+    },
+    "SaveRate" : {
+      "configuration" : {
+        "childStreams" : null,
+        "enableBadging" : true,
+        "type" : "LocustInputRate",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "SaveToType"
+    },
+    "SaveThroughput" : {
+      "configuration" : {
+        "childStreams" : [ ],
+        "enableBadging" : true,
+        "type" : "ThroughputRate",
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "SaveToType"
+    },
+    "Throughput" : {
+      "configuration" : {
+        "childStreams" : [ "TransformThroughput" ],
+        "enableBadging" : true,
+        "groupByWindow" : null,
+        "outputFrequency" : "1 second"
+      },
+      "description" : null,
+      "pattern" : "Rate"
+    },
+    "Transform" : {
+      "configuration" : {
+        "childStreams" : [ "Throughput" ],
+        "enableBadging" : true,
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "transformation" : {
+          "id" : {
+            "expression" : "event.id",
+            "type" : "expression"
+          },
+          "seq" : {
+            "expression" : "event.seq",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "event.time",
+            "type" : "expression"
+          },
+          "value" : {
+            "expression" : "event.value",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation"
+    },
+    "TransformInputRate" : {
+      "configuration" : {
+        "childStreams" : [ "SaveRate" ],
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "LocustInput",
+        "transformation" : {
+          "rate" : {
+            "expression" : "event.rate",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "now()",
+            "type" : "expression"
+          },
+          "topic_name" : {
+            "expression" : "\"/locust/scenario\"",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation"
+    },
+    "TransformThroughput" : {
+      "configuration" : {
+        "childStreams" : [ "SaveThroughput" ],
+        "outboundResource" : null,
+        "outboundResourceId" : null,
+        "schema" : "ThroughputRate",
+        "transformation" : {
+          "process_name" : {
+            "expression" : "\"scpf-perf-test-1\"",
+            "type" : "expression"
+          },
+          "rate" : {
+            "expression" : "event.rate",
+            "type" : "expression"
+          },
+          "time" : {
+            "expression" : "now()",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "description" : null,
+      "pattern" : "Transformation"
+    }
+  },
+  "collaboratorRoles" : [ ],
+  "currentState" : {
+    "code" : "success"
+  },
+  "description" : "",
+  "disableBadging" : false,
+  "entityRoles" : [ ],
+  "keyTypes" : [ "system.collaborations" ],
+  "name" : "ScpfPerfTest1"
+}

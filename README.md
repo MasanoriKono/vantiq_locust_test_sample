@@ -13,6 +13,10 @@ git clone https://github.com/MasanoriKono/vantiq_locust_test_sample.git
 - import the folder `resources/locusttest` as VANTIQ project In VANTIQ IDE. 
 - import the data `resource/data/SensorDetails.json` as data in VANTIQ IDE.
 - generate VANTIQ access token from the namespace.
+- install the dependencies
+```shell script
+pip3 install -r requirements.txt
+```
 - in the project root folder, run the command:
 ```shell script
 env POD_NAME=local-run \

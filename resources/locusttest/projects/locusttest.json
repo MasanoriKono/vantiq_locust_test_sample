@@ -261,58 +261,115 @@
     "source" : "source/LocustMQTTSource",
     "target" : "app/LocustTest_14"
   }, {
+    "source" : "type/LocustInput",
+    "target" : "app/ScpfPerfTest1"
+  }, {
+    "source" : "app/ScpfPerfTest1",
+    "target" : "type/LocustInputRate"
+  }, {
+    "source" : "type/ThroughputRate",
+    "target" : "app/ScpfPerfTest1"
+  }, {
+    "source" : "topic//locust/scenario/1",
+    "target" : "type/LocustInput"
+  }, {
+    "source" : "topic//locust/scenario/3",
+    "target" : "type/LocustInput"
+  }, {
+    "source" : "topic//locust/scenario/1",
+    "target" : "app/ScpfPerfTest1"
+  }, {
+    "source" : "topic//locust/scenario/3",
+    "target" : "app/ScpfPerfTest1"
+  }, {
     "source" : "topic//locust/input10/1",
     "target" : "type/LocustInput"
+  }, {
+    "source" : "topic//locust/input10/1",
+    "target" : "app/LocustTest_10"
   }, {
     "source" : "topic//locust/input10/2",
     "target" : "type/LocustInput"
   }, {
+    "source" : "topic//locust/input10/2",
+    "target" : "app/LocustTest_10"
+  }, {
     "source" : "topic//locust/input19/1",
     "target" : "type/LocustInput"
+  }, {
+    "source" : "topic//locust/input19/1",
+    "target" : "app/LocustTest_19"
   }, {
     "source" : "topic//locust/input19/2",
     "target" : "type/LocustInput"
   }, {
+    "source" : "topic//locust/input19/2",
+    "target" : "app/LocustTest_19"
+  }, {
     "source" : "topic//locust/input19/3",
     "target" : "type/LocustInput"
+  }, {
+    "source" : "topic//locust/input19/3",
+    "target" : "app/LocustTest_19"
+  }, {
+    "source" : "topic//locust/scenario/2",
+    "target" : "app/ScpfPerfTest1"
+  }, {
+    "source" : "type/LocustInput",
+    "target" : "app/ScpfPerfTest2"
+  }, {
+    "source" : "app/ScpfPerfTest2",
+    "target" : "type/LocustInputRate"
+  }, {
+    "source" : "type/ThroughputRate",
+    "target" : "app/ScpfPerfTest2"
+  }, {
+    "source" : "topic//locust/scenario/1",
+    "target" : "app/ScpfPerfTest2"
+  }, {
+    "source" : "topic//locust/scenario/2",
+    "target" : "app/ScpfPerfTest2"
+  }, {
+    "source" : "topic//locust/scenario/3",
+    "target" : "app/ScpfPerfTest2"
+  }, {
+    "source" : "type/SensorDetails",
+    "target" : "app/ScpfPerfTest2"
+  }, {
+    "source" : "app/ScpfPerfTest2",
+    "target" : "procedure/merge_stream"
   } ],
   "name" : "locusttest",
   "options" : {
-    "blacklist" : [ "app/locustsample2", "topic//locust/input10/1", "topic//locust/input10/2", "topic//locust/input19/1", "topic//locust/input19/2", "topic//locust/input19/3" ],
     "description" : "",
     "dockCollapsed" : {
-      "bottom" : true,
+      "bottom" : false,
       "left" : false,
       "right" : false,
       "top" : false,
       "viewtabs" : false
     },
     "dockDimensions" : {
-      "bottom" : 200,
+      "bottom" : 551,
       "debug" : [ 0, 0, 0 ],
       "left" : 296,
       "right" : 220,
       "top" : 0,
       "viewtabs" : 0
     },
-    "dockSort" : 1,
     "filterBitArray" : "ffffffffffffffffffffffffffffffff",
     "isModeloProject" : true,
-    "layoutStyle" : "tile",
+    "layoutStyle" : "custom",
+    "listFlavor" : "tree",
     "openResourceFolders" : {
-      "app" : true,
-      "procedure" : true,
-      "source" : true,
-      "topic" : true,
-      "type" : true
+      "App" : true,
+      "Subscription" : true,
+      "Topic" : true,
+      "Type" : true
     },
-    "rootViewFlavor" : 1,
     "showGrid" : true,
-    "tileColumns" : 2,
-    "tileRows" : 2,
     "type" : "dev",
-    "v" : 3,
-    "viewUUID" : "MAINVIEW"
+    "v" : 3
   },
   "resources" : [ {
     "label" : "/locust/input",
@@ -343,6 +400,7 @@
       "typeHash" : [ "out" ],
       "types" : [ "LocustInput" ]
     },
+    "label" : "/locust/input10/1",
     "name" : "/locust/input10/1",
     "resourceReference" : "/topics//locust/input10/1",
     "type" : 10
@@ -365,6 +423,7 @@
       "typeHash" : [ "out" ],
       "types" : [ "LocustInput" ]
     },
+    "label" : "/locust/input10/2",
     "name" : "/locust/input10/2",
     "resourceReference" : "/topics//locust/input10/2",
     "type" : 10
@@ -387,6 +446,7 @@
       "typeHash" : [ "out" ],
       "types" : [ "LocustInput" ]
     },
+    "label" : "/locust/input19/1",
     "name" : "/locust/input19/1",
     "resourceReference" : "/topics//locust/input19/1",
     "type" : 10
@@ -409,6 +469,7 @@
       "typeHash" : [ "out" ],
       "types" : [ "LocustInput" ]
     },
+    "label" : "/locust/input19/2",
     "name" : "/locust/input19/2",
     "resourceReference" : "/topics//locust/input19/2",
     "type" : 10
@@ -431,6 +492,7 @@
       "typeHash" : [ "out" ],
       "types" : [ "LocustInput" ]
     },
+    "label" : "/locust/input19/3",
     "name" : "/locust/input19/3",
     "resourceReference" : "/topics//locust/input19/3",
     "type" : 10
@@ -555,6 +617,57 @@
     "resourceReference" : "/topics//locust/input9/3",
     "type" : 10
   }, {
+    "inventory" : {
+      "clientHash" : [ ],
+      "clients" : [ ],
+      "collaborationHash" : [ ],
+      "collaborations" : [ ],
+      "eventstreamHash" : [ ],
+      "eventstreams" : [ ],
+      "procedureHash" : [ ],
+      "procedures" : [ ],
+      "sourceHash" : [ ],
+      "sources" : [ ],
+      "systemmodelHash" : [ ],
+      "systemmodels" : [ ],
+      "topicHash" : [ ],
+      "topics" : [ ],
+      "typeHash" : [ "out" ],
+      "types" : [ "LocustInput" ]
+    },
+    "label" : "/locust/scenario/1",
+    "name" : "/locust/scenario/1",
+    "resourceReference" : "/topics//locust/scenario/1",
+    "type" : 10
+  }, {
+    "label" : "/locust/scenario/2",
+    "name" : "/locust/scenario/2",
+    "resourceReference" : "/topics//locust/scenario/2",
+    "type" : 10
+  }, {
+    "inventory" : {
+      "clientHash" : [ ],
+      "clients" : [ ],
+      "collaborationHash" : [ ],
+      "collaborations" : [ ],
+      "eventstreamHash" : [ ],
+      "eventstreams" : [ ],
+      "procedureHash" : [ ],
+      "procedures" : [ ],
+      "sourceHash" : [ ],
+      "sources" : [ ],
+      "systemmodelHash" : [ ],
+      "systemmodels" : [ ],
+      "topicHash" : [ ],
+      "topics" : [ ],
+      "typeHash" : [ "out" ],
+      "types" : [ "LocustInput" ]
+    },
+    "label" : "/locust/scenario/3",
+    "name" : "/locust/scenario/3",
+    "resourceReference" : "/topics//locust/scenario/3",
+    "type" : 10
+  }, {
     "label" : "/my/response/topic",
     "name" : "/my/response/topic",
     "resourceReference" : "/topics//my/response/topic",
@@ -568,13 +681,13 @@
     "label" : "LocustInput",
     "name" : "LocustInput",
     "resourceReference" : "/types/LocustInput",
-    "timestamp" : "2020-09-07T02:37:14.087Z",
+    "timestamp" : "2020-09-15T07:53:08.650Z",
     "type" : 1
   }, {
     "label" : "LocustInputRate",
     "name" : "LocustInputRate",
     "resourceReference" : "/types/LocustInputRate",
-    "timestamp" : "2020-09-07T02:37:14.078Z",
+    "timestamp" : "2020-09-15T07:53:08.630Z",
     "type" : 1
   }, {
     "inventory" : {
@@ -598,7 +711,7 @@
     "label" : "LocustMQTTSource",
     "name" : "LocustMQTTSource",
     "resourceReference" : "/sources/LocustMQTTSource",
-    "timestamp" : "2020-09-07T14:02:38.953Z",
+    "timestamp" : "2020-09-15T07:53:10.282Z",
     "type" : 4
   }, {
     "inventory" : {
@@ -622,7 +735,7 @@
     "label" : "LocustTest",
     "name" : "LocustTest",
     "resourceReference" : "/collaborationtypes/LocustTest",
-    "timestamp" : "2020-08-25T02:29:05.224Z",
+    "timestamp" : "2020-09-15T07:53:12.145Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -646,7 +759,7 @@
     "label" : "LocustTest_1",
     "name" : "LocustTest_1",
     "resourceReference" : "/collaborationtypes/LocustTest_1",
-    "timestamp" : "2020-09-07T02:37:16.074Z",
+    "timestamp" : "2020-09-15T07:53:12.147Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -662,15 +775,15 @@
       "sources" : [ ],
       "systemmodelHash" : [ ],
       "systemmodels" : [ ],
-      "topicHash" : [ ],
-      "topics" : [ ],
+      "topicHash" : [ "in", "in" ],
+      "topics" : [ "/locust/input10/1", "/locust/input10/2" ],
       "typeHash" : [ "in", "out", "in" ],
       "types" : [ "LocustInput", "LocustInputRate", "ThroughputRate" ]
     },
     "label" : "LocustTest_10",
     "name" : "LocustTest_10",
     "resourceReference" : "/collaborationtypes/LocustTest_10",
-    "timestamp" : "2020-09-07T07:29:13.471Z",
+    "timestamp" : "2020-09-15T07:53:12.161Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -694,7 +807,7 @@
     "label" : "LocustTest_11",
     "name" : "LocustTest_11",
     "resourceReference" : "/collaborationtypes/LocustTest_11",
-    "timestamp" : "2020-09-07T07:29:00.707Z",
+    "timestamp" : "2020-09-15T07:53:12.131Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -713,12 +826,12 @@
       "topicHash" : [ "in" ],
       "topics" : [ "/locust/input3" ],
       "typeHash" : [ "in", "in", "in", "in" ],
-      "types" : [ "LocustInput", "SensorDetails", "ThroughputRate", "LocustInputRate" ]
+      "types" : [ "SensorDetails", "LocustInput", "ThroughputRate", "LocustInputRate" ]
     },
     "label" : "LocustTest_12",
     "name" : "LocustTest_12",
     "resourceReference" : "/collaborationtypes/LocustTest_12",
-    "timestamp" : "2020-09-07T08:35:47.327Z",
+    "timestamp" : "2020-09-15T07:53:12.135Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -737,12 +850,12 @@
       "topicHash" : [ "in" ],
       "topics" : [ "/locust/input3" ],
       "typeHash" : [ "in", "in", "in", "in" ],
-      "types" : [ "LocustInput", "ThroughputRate", "LocustInputRate", "SensorDetails" ]
+      "types" : [ "SensorDetails", "LocustInput", "ThroughputRate", "LocustInputRate" ]
     },
     "label" : "LocustTest_13",
     "name" : "LocustTest_13",
     "resourceReference" : "/collaborationtypes/LocustTest_13",
-    "timestamp" : "2020-09-07T08:37:22.525Z",
+    "timestamp" : "2020-09-15T07:53:12.193Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -766,7 +879,7 @@
     "label" : "LocustTest_14",
     "name" : "LocustTest_14",
     "resourceReference" : "/collaborationtypes/LocustTest_14",
-    "timestamp" : "2020-09-07T14:47:37.940Z",
+    "timestamp" : "2020-09-15T07:53:12.147Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -790,7 +903,7 @@
     "label" : "LocustTest_15",
     "name" : "LocustTest_15",
     "resourceReference" : "/collaborationtypes/LocustTest_15",
-    "timestamp" : "2020-09-07T02:37:16.075Z",
+    "timestamp" : "2020-09-15T07:53:12.214Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -806,15 +919,15 @@
       "sources" : [ ],
       "systemmodelHash" : [ ],
       "systemmodels" : [ ],
-      "topicHash" : [ ],
-      "topics" : [ ],
+      "topicHash" : [ "in", "in", "in" ],
+      "topics" : [ "/locust/input19/1", "/locust/input19/2", "/locust/input19/3" ],
       "typeHash" : [ "in", "out" ],
       "types" : [ "LocustInput", "LocustInputRate" ]
     },
     "label" : "LocustTest_19",
     "name" : "LocustTest_19",
     "resourceReference" : "/collaborationtypes/LocustTest_19",
-    "timestamp" : "2020-09-07T15:02:44.605Z",
+    "timestamp" : "2020-09-15T07:53:12.187Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -838,7 +951,7 @@
     "label" : "LocustTest_2",
     "name" : "LocustTest_2",
     "resourceReference" : "/collaborationtypes/LocustTest_2",
-    "timestamp" : "2020-09-07T02:37:16.088Z",
+    "timestamp" : "2020-09-15T07:53:12.142Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -862,7 +975,7 @@
     "label" : "LocustTest_3",
     "name" : "LocustTest_3",
     "resourceReference" : "/collaborationtypes/LocustTest_3",
-    "timestamp" : "2020-09-07T14:08:38.460Z",
+    "timestamp" : "2020-09-15T07:53:12.203Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -886,7 +999,7 @@
     "label" : "LocustTest_4",
     "name" : "LocustTest_4",
     "resourceReference" : "/collaborationtypes/LocustTest_4",
-    "timestamp" : "2020-09-07T02:37:16.085Z",
+    "timestamp" : "2020-09-15T07:53:12.124Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -910,7 +1023,7 @@
     "label" : "LocustTest_5",
     "name" : "LocustTest_5",
     "resourceReference" : "/collaborationtypes/LocustTest_5",
-    "timestamp" : "2020-09-07T02:37:16.074Z",
+    "timestamp" : "2020-09-15T07:53:12.120Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -934,7 +1047,7 @@
     "label" : "LocustTest_6",
     "name" : "LocustTest_6",
     "resourceReference" : "/collaborationtypes/LocustTest_6",
-    "timestamp" : "2020-09-07T02:37:16.086Z",
+    "timestamp" : "2020-09-15T07:53:12.161Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -958,7 +1071,7 @@
     "label" : "LocustTest_7",
     "name" : "LocustTest_7",
     "resourceReference" : "/collaborationtypes/LocustTest_7",
-    "timestamp" : "2020-09-07T02:37:16.076Z",
+    "timestamp" : "2020-09-15T07:53:12.225Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -982,7 +1095,7 @@
     "label" : "LocustTest_8",
     "name" : "LocustTest_8",
     "resourceReference" : "/collaborationtypes/LocustTest_8",
-    "timestamp" : "2020-09-07T02:37:16.092Z",
+    "timestamp" : "2020-09-15T07:53:12.145Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -1006,7 +1119,7 @@
     "label" : "LocustTest_9",
     "name" : "LocustTest_9",
     "resourceReference" : "/collaborationtypes/LocustTest_9",
-    "timestamp" : "2020-09-07T07:06:14.598Z",
+    "timestamp" : "2020-09-15T07:53:12.120Z",
     "type" : 12
   }, {
     "inventory" : {
@@ -1030,19 +1143,19 @@
     "label" : "LocustTest_template",
     "name" : "LocustTest_template",
     "resourceReference" : "/collaborationtypes/LocustTest_template",
-    "timestamp" : "2020-09-07T02:37:16.076Z",
+    "timestamp" : "2020-09-15T07:53:12.132Z",
     "type" : 12
   }, {
     "label" : "Locust_INSERT_DELETE",
     "name" : "Locust_INSERT_DELETE",
     "resourceReference" : "/types/Locust_INSERT_DELETE",
-    "timestamp" : "2020-09-07T02:37:14.117Z",
+    "timestamp" : "2020-09-15T07:53:08.652Z",
     "type" : 1
   }, {
     "label" : "Locust_UPSERT",
     "name" : "Locust_UPSERT",
     "resourceReference" : "/types/Locust_UPSERT",
-    "timestamp" : "2020-09-07T02:37:14.117Z",
+    "timestamp" : "2020-09-15T07:53:08.657Z",
     "type" : 1
   }, {
     "inventory" : {
@@ -1066,19 +1179,67 @@
     "label" : "PerformanceMonitorClient",
     "name" : "PerformanceMonitorClient",
     "resourceReference" : "/system.clients/PerformanceMonitorClient",
-    "timestamp" : "2020-09-07T02:37:14.325Z",
+    "timestamp" : "2020-09-15T07:53:09.284Z",
     "type" : 15
+  }, {
+    "inventory" : {
+      "clientHash" : [ ],
+      "clients" : [ ],
+      "collaborationHash" : [ ],
+      "collaborations" : [ ],
+      "eventstreamHash" : [ ],
+      "eventstreams" : [ ],
+      "procedureHash" : [ ],
+      "procedures" : [ ],
+      "sourceHash" : [ ],
+      "sources" : [ ],
+      "systemmodelHash" : [ ],
+      "systemmodels" : [ ],
+      "topicHash" : [ "in", "in", "in" ],
+      "topics" : [ "/locust/scenario/1", "/locust/scenario/2", "/locust/scenario/3" ],
+      "typeHash" : [ "in", "out", "in" ],
+      "types" : [ "LocustInput", "LocustInputRate", "ThroughputRate" ]
+    },
+    "label" : "ScpfPerfTest1",
+    "name" : "ScpfPerfTest1",
+    "resourceReference" : "/collaborationtypes/ScpfPerfTest1",
+    "timestamp" : "2020-09-15T07:53:12.123Z",
+    "type" : 12
+  }, {
+    "inventory" : {
+      "clientHash" : [ ],
+      "clients" : [ ],
+      "collaborationHash" : [ ],
+      "collaborations" : [ ],
+      "eventstreamHash" : [ ],
+      "eventstreams" : [ ],
+      "procedureHash" : [ "out" ],
+      "procedures" : [ "merge_stream" ],
+      "sourceHash" : [ ],
+      "sources" : [ ],
+      "systemmodelHash" : [ ],
+      "systemmodels" : [ ],
+      "topicHash" : [ "in", "in", "in" ],
+      "topics" : [ "/locust/scenario/1", "/locust/scenario/2", "/locust/scenario/3" ],
+      "typeHash" : [ "in", "in", "out", "in" ],
+      "types" : [ "SensorDetails", "LocustInput", "LocustInputRate", "ThroughputRate" ]
+    },
+    "label" : "ScpfPerfTest2",
+    "name" : "ScpfPerfTest2",
+    "resourceReference" : "/collaborationtypes/ScpfPerfTest2",
+    "timestamp" : "2020-09-16T08:58:49.912Z",
+    "type" : 12
   }, {
     "label" : "SensorDetails",
     "name" : "SensorDetails",
     "resourceReference" : "/types/SensorDetails",
-    "timestamp" : "2020-09-07T07:21:20.009Z",
+    "timestamp" : "2020-09-15T08:12:45.126Z",
     "type" : 1
   }, {
     "label" : "ThroughputRate",
     "name" : "ThroughputRate",
     "resourceReference" : "/types/ThroughputRate",
-    "timestamp" : "2020-09-07T02:37:14.077Z",
+    "timestamp" : "2020-09-15T07:53:08.628Z",
     "type" : 1
   }, {
     "inventory" : {
@@ -1102,7 +1263,7 @@
     "label" : "delete_or_insert",
     "name" : "delete_or_insert",
     "resourceReference" : "/procedures/delete_or_insert",
-    "timestamp" : "2020-09-07T02:37:16.047Z",
+    "timestamp" : "2020-09-15T07:53:11.710Z",
     "type" : 3
   }, {
     "inventory" : {
@@ -1126,7 +1287,7 @@
     "label" : "get_join_key",
     "name" : "get_join_key",
     "resourceReference" : "/procedures/get_join_key",
-    "timestamp" : "2020-09-07T08:11:02.670Z",
+    "timestamp" : "2020-09-15T07:53:11.761Z",
     "type" : 3
   }, {
     "inventory" : {
@@ -1150,69 +1311,122 @@
     "label" : "merge_stream",
     "name" : "merge_stream",
     "resourceReference" : "/procedures/merge_stream",
-    "timestamp" : "2020-09-07T06:17:17.795Z",
+    "timestamp" : "2020-09-15T07:53:11.714Z",
     "type" : 3
+  }, {
+    "name" : "system.logs",
+    "resourceReference" : "/types/system.logs",
+    "timestamp" : "2020-05-12T12:36:28.982Z",
+    "type" : 1
   } ],
   "tools" : [ {
-    "isPinned" : false,
-    "name" : "/locust/input9/1",
-    "pane" : {
-      "c" : 1,
-      "r" : 1
-    },
-    "resourceKey" : "topic//locust/input9/1",
-    "state" : 2,
-    "type" : 8
-  }, {
     "dockLocation" : "top",
     "isPinned" : false,
     "name" : "Inactive Panes",
+    "pane" : {
+      "h" : 10,
+      "w" : 10,
+      "x" : -6000,
+      "y" : -6000
+    },
     "type" : 99
   }, {
     "isPinned" : false,
-    "name" : "LocustTest_13",
-    "pane" : {
-      "c" : -1,
-      "r" : -1
-    },
-    "resourceKey" : "app/LocustTest_13",
-    "state" : 4,
-    "toolOptions" : { },
-    "type" : 15
-  }, {
-    "isPinned" : false,
-    "name" : "LocustTest_14",
-    "pane" : {
-      "c" : -1,
-      "r" : -1
-    },
-    "resourceKey" : "app/LocustTest_14",
-    "state" : 4,
-    "toolOptions" : { },
-    "type" : 15
-  }, {
-    "isPinned" : false,
-    "name" : "LocustTest_19",
-    "pane" : {
-      "c" : 0,
-      "r" : 0
-    },
-    "resourceKey" : "app/LocustTest_19",
-    "state" : 2,
-    "toolOptions" : { },
-    "type" : 15
-  }, {
-    "isPinned" : false,
     "name" : "エラー",
+    "pane" : {
+      "h" : 555,
+      "w" : 1475.5,
+      "x" : 0,
+      "y" : 0
+    },
     "type" : 13
   }, {
     "isPinned" : false,
     "name" : "プロジェクト コンテンツ",
+    "pane" : {
+      "h" : 1545.75,
+      "w" : 296,
+      "x" : 0,
+      "y" : 0
+    },
     "type" : 2
+  }, {
+    "isPinned" : false,
+    "name" : "/locust/scenario/3",
+    "pane" : {
+      "h" : 669.5,
+      "w" : 1172.5,
+      "x" : 30,
+      "y" : 770
+    },
+    "resourceKey" : "topic//locust/scenario/3",
+    "type" : 8
+  }, {
+    "isPinned" : false,
+    "name" : "ScpfPerfTest2",
+    "pane" : {
+      "h" : 1160,
+      "w" : 1760,
+      "x" : 0,
+      "y" : 30
+    },
+    "resourceKey" : "app/ScpfPerfTest2",
+    "toolOptions" : {
+      "propertyPaneWidth" : 250,
+      "scaleAndTranslationState" : {
+        "lastZoomRequest" : 0,
+        "scale" : 1.1654037104781814,
+        "translate" : [ 489.7492487588189, 49.82100862294226 ]
+      }
+    },
+    "type" : 15
+  }, {
+    "isPinned" : false,
+    "name" : "ThroughputRate",
+    "pane" : {
+      "h" : 400,
+      "w" : 600,
+      "x" : 40,
+      "y" : 2910
+    },
+    "resourceKey" : "type/ThroughputRate",
+    "type" : 6
+  }, {
+    "isPinned" : false,
+    "name" : "/locust/scenario/1",
+    "pane" : {
+      "h" : 400,
+      "w" : 600,
+      "x" : 1770,
+      "y" : 30
+    },
+    "resourceKey" : "topic//locust/scenario/1",
+    "type" : 8
+  }, {
+    "isPinned" : false,
+    "name" : "ログメッセージ",
+    "pane" : {
+      "h" : 555,
+      "w" : 1675.5,
+      "x" : 1478.5,
+      "y" : 0
+    },
+    "type" : 12
+  }, {
+    "isPinned" : false,
+    "name" : "system.logs",
+    "pane" : {
+      "h" : 400,
+      "w" : 1130,
+      "x" : 30,
+      "y" : 1860
+    },
+    "resourceKey" : "type/system.logs",
+    "type" : 6
   } ],
   "type" : "dev",
   "views" : [ {
     "name" : "Project Contents",
-    "projectToolKeys" : [ "subtopiceditor//locust/input9/1", "tiledock/Inactive Panes", "app/LocustTest_13", "app/LocustTest_14", "app/LocustTest_19", "errorviewer/エラー", "list/プロジェクト コンテンツ" ]
+    "projectToolKeys" : [ "tiledock/Inactive Panes", "errorviewer/エラー", "list/プロジェクト コンテンツ", "subtopiceditor//locust/scenario/3", "app/ScpfPerfTest2", "subtypeeditor/ThroughputRate", "errorqueryresults/Unseen Errors @ 3:59:31 PM", "errorqueryresults/Unseen Errors @ 4:01:25 PM", "subtopiceditor//locust/scenario/1", "logviewer/ログメッセージ", "subsubscribeeditor/ScpfPerfTest2_InputRate", "subtypeeditor/system.logs" ]
   } ]
 }

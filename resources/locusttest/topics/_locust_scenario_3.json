@@ -1,0 +1,6 @@
+{
+  "description" : "input for battery sensor",
+  "isReliable" : false,
+  "messageType" : "LocustInput",
+  "name" : "/locust/scenario/3"
+}
