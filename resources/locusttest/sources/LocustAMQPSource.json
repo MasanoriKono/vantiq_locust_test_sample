@@ -1,0 +1,19 @@
+{
+  "activationConstraint" : "",
+  "active" : true,
+  "ars_properties" : null,
+  "config" : {
+    "contentType" : "application/json",
+    "enabledSaslMechanisms" : [ "PLAIN" ],
+    "password" : "jqmG71opdFq5N8U3l5121laLf//+ciAkJ3LqL+jvty0=",
+    "passwordType" : "string",
+    "serverURIs" : [ "amqps://locusttest.servicebus.windows.net:5671" ],
+    "topics" : [ "windsensor/ConsumerGroups/$default/Partitions/0", "tempsensor/ConsumerGroups/$default/Partitions/0", "batterysensor/ConsumerGroups/$default/Partitions/0" ],
+    "username" : "RootManageSharedAccessKey"
+  },
+  "direction" : "BOTH",
+  "messageType" : "LocustInput",
+  "mockProcedures" : { },
+  "name" : "LocustAMQPSource",
+  "type" : "AMQP"
+}

@@ -1,6 +1,28 @@
 {
   "active" : false,
   "appType" : true,
+  "ars_properties" : {
+    "dataVersion" : 4,
+    "graph" : {
+      "lastZoomRequest" : 0,
+      "scale" : 1.268041237113402,
+      "translate" : [ 252.2697326030928, 45.113402061855794 ]
+    },
+    "groupSettings" : {
+      "appGroupOpenHash" : {
+        "actions" : true,
+        "filters" : true,
+        "flowControl" : true
+      },
+      "ctGroupOpenHash" : {
+        "actions" : true,
+        "mobile" : true
+      },
+      "ctServiceOpen" : false,
+      "serviceGroupOpenHash" : { }
+    },
+    "paletteWidth" : 170
+  },
   "assembly" : {
     "Delay" : {
       "configuration" : {
@@ -8,7 +30,8 @@
         "delay" : "5 seconds"
       },
       "description" : null,
-      "pattern" : "Delay"
+      "pattern" : "Delay",
+      "uuid" : "febfe4d8-ecbe-4e18-8f13-9e3bfe58179a"
     },
     "InputRate" : {
       "configuration" : {
@@ -19,14 +42,14 @@
         "rateInterval" : "1 second"
       },
       "description" : null,
-      "pattern" : "Rate"
+      "pattern" : "Rate",
+      "uuid" : "fc9e940c-955b-4891-8223-3dc2acb4f6c5"
     },
     "InputStream" : {
       "configuration" : {
         "childStreams" : [ "InputRate", "Delay" ],
-        "enableBadging" : true,
-        "inboundResource" : "topics",
-        "inboundResourceId" : "/locust/input5",
+        "inboundResource" : "sources",
+        "inboundResourceId" : "LocustAMQPSource",
         "op" : null,
         "outboundResource" : null,
         "outboundResourceId" : null,
@@ -34,7 +57,8 @@
         "upsert" : false
       },
       "description" : null,
-      "pattern" : "EventStream"
+      "pattern" : "EventStream",
+      "uuid" : "aa3a7438-48c4-4d5e-8a07-18cffbd445a7"
     },
     "SaveRate" : {
       "configuration" : {
@@ -44,7 +68,8 @@
         "upsert" : false
       },
       "description" : null,
-      "pattern" : "SaveToType"
+      "pattern" : "SaveToType",
+      "uuid" : "24b33db8-eb74-44a2-82e7-38f29db27914"
     },
     "SaveThroughput" : {
       "configuration" : {
@@ -54,7 +79,8 @@
         "upsert" : false
       },
       "description" : null,
-      "pattern" : "SaveToType"
+      "pattern" : "SaveToType",
+      "uuid" : "48c10a74-3788-4e65-85c7-ec22951131c7"
     },
     "Throughput" : {
       "configuration" : {
@@ -64,7 +90,8 @@
         "outputFrequency" : "1 second"
       },
       "description" : null,
-      "pattern" : "Rate"
+      "pattern" : "Rate",
+      "uuid" : "c60a69e2-88dd-4f44-b9b5-d429a545fdf4"
     },
     "TransformInputRate" : {
       "configuration" : {
@@ -90,7 +117,8 @@
         "upsert" : false
       },
       "description" : null,
-      "pattern" : "Transformation"
+      "pattern" : "Transformation",
+      "uuid" : "e1f00fdf-1e8b-45c8-86ac-a2fc5e766a1c"
     },
     "TransformThroughput" : {
       "configuration" : {
@@ -116,7 +144,8 @@
         "upsert" : false
       },
       "description" : null,
-      "pattern" : "Transformation"
+      "pattern" : "Transformation",
+      "uuid" : "cd9b1ee2-eb66-45e8-8365-e8348f38f744"
     }
   },
   "collaboratorRoles" : [ ],

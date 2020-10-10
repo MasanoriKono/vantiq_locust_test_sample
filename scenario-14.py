@@ -16,7 +16,7 @@ class WindSensor(TaskSet):
     def pub(self):
 
         # retrieve the dev instance
-        dev_id = Util.get_id(self.parent, "dev")
+        dev_id = Util.get_id(self.parent, "dev", Util.get_class_name(self))
         if dev_id in device_instance:
             dev = device_instance[dev_id]
         else:
@@ -66,7 +66,7 @@ class TemperatureSensor(TaskSet):
     def pub(self):
 
         # retrieve the dev instance
-        dev_id = Util.get_id(self.parent, "dev")
+        dev_id = Util.get_id(self.parent, "dev", Util.get_class_name(self))
         if dev_id in device_instance:
             dev = device_instance[dev_id]
         else:
@@ -116,7 +116,7 @@ class BatterySensor(TaskSet):
     def pub(self):
 
         # retrieve the dev instance
-        dev_id = Util.get_id(self.parent, "dev")
+        dev_id = Util.get_id(self.parent, "dev", Util.get_class_name(self))
         if dev_id in device_instance:
             dev = device_instance[dev_id]
         else:

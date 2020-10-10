@@ -1,14 +1,18 @@
+import asyncio
 import math
 import os
 import datetime
 import random
 import time
 import json
+
 import numpy as np
 import paho.mqtt.client as mqtt
 
 
 # map to count the number of user instance by type.
+from azure.eventhub import EventHubProducerClient, EventData
+
 user_instance_map = {}
 
 
@@ -20,6 +24,18 @@ def get_id(self, prefix):
     :return: string representing unique ID (prefix + pod name + class name + locust thread number)
     """
     class_name = get_class_name(self)
+    return get_id(self, prefix, class_name)
+
+
+def get_id(self, prefix, device_type):
+    """
+    Returns the unique ID of running thread.
+    :param self: FastHttpUser object
+    :param prefix: prefix for ID
+    :param device_type: device_Type (class name)
+    :return: string representing unique ID (prefix + pod name + class name + locust thread number)
+    """
+    class_name = device_type
     thread_id = self._greenlet.getcurrent()
     instance_mum = 0
 
@@ -36,6 +52,7 @@ def get_id(self, prefix):
         instance_num = 1
 
     return "{}-{}-{}-{}".format(prefix, get_pod_name(), class_name, instance_num)
+
 
 def get_class_name(self):
     '''
@@ -116,19 +133,12 @@ def get_mqtt_password():
     '''
     return os.getenv("MQTT_PASSWORD")
 
-def get_amqp_username():
+def get_eventhubs_connection_string():
     '''
-    returns the user name for AMQP connection.
+    returns the connection string for EVENT_HUBS connection.
     :return:
     '''
-    return os.getenv("AMQP_USERNAME")
-
-def get_amqp_password():
-    '''
-    returns the password for AMQP connection.
-    :return:
-    '''
-    return os.getenv("AMQP_PASSWORD")
+    return os.getenv("EVENTHUBS_CONNECTION_STRING")
 
 def get_mqtt_endpoint():
     '''
@@ -171,6 +181,40 @@ def get_mqtt_client():
 #                       keyfile='xxxxxxx.pem',
 #                       tls_version=ssl.PROTOCOL_TLSv1_2)
 #        client.tls_insecure_set(True)
+
+
+def publish_to_eventhubs(event_hub, data):
+
+    map_key = 'amqp_messenger_' + event_hub
+#    producer = user_instance_map[map_key] if map_key in user_instance_map \
+#        else EventHubProducerClient.from_connection_string(conn_str=get_eventhubs_connection_string(), eventhub_name=event_hub)
+    producer = EventHubProducerClient.from_connection_string(conn_str=get_eventhubs_connection_string(), eventhub_name=event_hub)
+
+#    async def run():
+#        async with producer:
+#            # Create a batch.
+#            event_data_batch = await producer.create_batch()
+
+            # Add events to the batch.
+#            event_data_batch.add(EventData(data))
+
+            # Send the batch of events to the event hub.
+#            await producer.send_batch(event_data_batch)
+
+    # Create a batch.
+    event_data_batch = producer.create_batch()
+
+    # Add events to the batch.
+    event_data_batch.add(EventData(data))
+
+    # Send the batch of events to the event hub.
+    producer.send_batch(event_data_batch)
+
+#    loop = asyncio.get_event_loop()
+#    loop.run_until_complete(run())
+#    run()
+    producer.close()
+    return
 
 
 class GenericSimulator:

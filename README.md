@@ -33,6 +33,15 @@ MQTT_ENDPOINT=<mqtt_endpoint> \
 locust -H https://<vantiq host> -f scenario-14.py --headless
 ```
 
+- run this command for Azure Eventhubs broker scenario:
+```shell script
+env POD_NAME=local-run \
+EVENTHUBS_CONNECTION_STRING=<eventhubs_connection_string> \
+MQTT_PASSWORD=<mqtt_password> \
+MQTT_ENDPOINT=<mqtt_endpoint> \
+locust -H https://<vantiq host> -f scenario-16.py --headless
+```
+
 - remove `--headless` to use the web UI to start / stop the test:
 ```shell script
 env POD_NAME=local-run \
@@ -71,6 +80,7 @@ data:
   MQTT_USERNAME: "<mqtt_username>"
   MQTT_PASSWORD: "<mqtt_password>"
   MQTT_ENDPOINT: "<mqtt_endpoint>"
+  EVENTHUBS_CONNECTION_STRING : "<eventhubs_connection_string>"
   TEST_VERSION: "3"
 ```
 - configure `spec.replicas` parameter in `k8s/LocustSTS.yaml` for the cluster size:
@@ -120,10 +130,10 @@ kubectl apply -f k8s/
 1. split by group - missing
 1. split by group - cached_enrich
 1. split by group - enrich (type select)
-1. ingest - https rest
 1. ingest - mqtt
 1. ingest - amqp (not implemented yet)
 1. ingest - kafka (not implemented yet)
+1. ingest - https rest
 1. load pattern - uniformly distributed load
 1. load pattern - spike 
 

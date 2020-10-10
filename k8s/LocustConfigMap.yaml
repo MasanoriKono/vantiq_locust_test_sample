@@ -10,4 +10,5 @@ data:
   MQTT_USERNAME: "<mqtt_username>"
   MQTT_PASSWORD: "<mqtt_password>"
   MQTT_ENDPOINT: "<mqtt_endpoint>"
+  EVENTHUBS_CONNECTION_STRING : "<eventhubs_connection_string>"
   TEST_VERSION: "3"
