@@ -37,8 +37,6 @@ locust -H https://<vantiq host> -f scenario-14.py --headless
 ```shell script
 env POD_NAME=local-run \
 EVENTHUBS_CONNECTION_STRING=<eventhubs_connection_string> \
-MQTT_PASSWORD=<mqtt_password> \
-MQTT_ENDPOINT=<mqtt_endpoint> \
 locust -H https://<vantiq host> -f scenario-16.py --headless
 ```
 
