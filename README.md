@@ -129,7 +129,7 @@ kubectl apply -f k8s/
 1. split by group - cached_enrich
 1. split by group - enrich (type select)
 1. ingest - mqtt
-1. ingest - amqp (not implemented yet)
+1. ingest - amqp (azure eventhub)
 1. ingest - kafka (not implemented yet)
 1. ingest - https rest
 1. load pattern - uniformly distributed load

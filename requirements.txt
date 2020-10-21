@@ -1,5 +1,4 @@
 locust
 numpy
 paho-mqtt
-python-qpid-proton
 azure-eventhub
