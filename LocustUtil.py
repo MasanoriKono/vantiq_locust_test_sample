@@ -11,7 +11,7 @@ import paho.mqtt.client as mqtt
 
 
 # map to count the number of user instance by type.
-from azure.eventhub import EventHubProducerClient, EventData
+#from azure.eventhub import EventHubProducerClient, EventData
 
 user_instance_map = {}
 
@@ -182,7 +182,7 @@ def get_mqtt_client():
 #                       tls_version=ssl.PROTOCOL_TLSv1_2)
 #        client.tls_insecure_set(True)
 
-
+'''
 def publish_to_eventhubs(event_hub, data):
 
     map_key = 'amqp_messenger_' + event_hub
@@ -215,7 +215,7 @@ def publish_to_eventhubs(event_hub, data):
 #    run()
     producer.close()
     return
-
+'''
 
 class GenericSimulator:
     init_value = 0.0
