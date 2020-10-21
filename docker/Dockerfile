@@ -9,11 +9,14 @@ RUN apk update && \
         libffi-dev \
         zeromq-dev \
         make \
+        cmake \
+        openssl \
         libzmq\
+        libressl-dev \
         git \
         bash \
-        && pip install locust pyzmq numpy paho-mqtt \
-        && apk del gcc g++ musl-dev libffi-dev make zeromq-dev
+        && pip install locust pyzmq numpy paho-mqtt  \
+        && apk del gcc g++ musl-dev libffi-dev make cmake zeromq-dev
 
 RUN locust -V
 
