@@ -1,3 +1,5 @@
+![image](./image.png)
+
 # Locust Test for VANTIQ
 This project is the template for writing the load test using locust.
 
@@ -10,7 +12,7 @@ This project is the template for writing the load test using locust.
 git clone https://github.com/MasanoriKono/vantiq_locust_test_sample.git
 ```
 
-- import the folder `resources/locusttest` as VANTIQ project In VANTIQ IDE. 
+- import the folder `resources/locusttest` as VANTIQ project In VANTIQ IDE.
 - import the data `resource/data/SensorDetails.json` as data in VANTIQ IDE.
 - generate VANTIQ access token from the namespace.
 - install the dependencies
@@ -44,7 +46,7 @@ locust -H https://<vantiq host> -f scenario-16.py --headless
 ```shell script
 env POD_NAME=local-run \
 ACCESS_TOKEN=<access token> \
-locust -H https://<vantiq host> -f scenario-XX.py 
+locust -H https://<vantiq host> -f scenario-XX.py
 ```
 
 - remove `CustomLoadTestShape` class to apply the parameter from command line
@@ -60,8 +62,8 @@ locust -H https://<vantiq host> -f scenario-XX.py --headless -u 20 -r 10
 ```bash
 git clone https://github.com/MasanoriKono/vantiq_locust_test_sample.git
 ```
-- check the project into your own github account. 
-- import the folder `resources/locusttest` as VANTIQ project In VANTIQ IDE. 
+- check the project into your own github account.
+- import the folder `resources/locusttest` as VANTIQ project In VANTIQ IDE.
 - import the data `resource/data/SensorDetails.json` as data in VANTIQ IDE.
 - get VANTIQ access token from the namespace.
 - udpate config in `k8s/LocustConfigMap.yanl`
@@ -133,7 +135,7 @@ kubectl apply -f k8s/
 1. ingest - kafka (not implemented yet)
 1. ingest - https rest
 1. load pattern - uniformly distributed load
-1. load pattern - spike 
+1. load pattern - spike
 
 
 ## Reference
