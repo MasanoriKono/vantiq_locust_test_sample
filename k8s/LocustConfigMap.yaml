@@ -6,7 +6,7 @@ data:
   VANTIQ_HOST: "<vantiq_host>"
   ACCESS_TOKEN: "<access_token>"
   GITHUB_REPO_URL: "https://github.com/MasanoriKono/vantiq_locust_test_sample.git"
-  SCENARIO: "scenario-XX.py"
+  SCENARIO: "scenario-2.py"
   MQTT_USERNAME: "<mqtt_username>"
   MQTT_PASSWORD: "<mqtt_password>"
   MQTT_ENDPOINT: "<mqtt_endpoint>"
