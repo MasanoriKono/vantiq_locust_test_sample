@@ -8,12 +8,12 @@
     "contentType" : "application/json",
     "keepAliveInterval" : 15,
     "maxInflight" : 10,
-    "password" : "Locust123456",
+    "password" : "<password>",
     "passwordType" : "string",
     "qos" : "AT_MOST_ONCE",
-    "serverURIs" : [ "mqtts://b-5c228d31-114c-45a4-b073-30541f5e4f9b-1.mq.us-east-2.amazonaws.com:8883" ],
+    "serverURIs" : [ "mqtts://<server_host>.mq.us-east-2.amazonaws.com:8883" ],
     "topics" : [ "locust", "/locust/mqtt/1" ],
-    "username" : "locust"
+    "username" : "<username>"
   },
   "direction" : "BOTH",
   "messageType" : null,
