@@ -24,10 +24,10 @@ def get_id(self, prefix):
     :return: string representing unique ID (prefix + pod name + class name + locust thread number)
     """
     class_name = get_class_name(self)
-    return get_id(self, prefix, class_name)
+    return get_id_from_type(self, prefix, class_name)
 
 
-def get_id(self, prefix, device_type):
+def get_id_from_type(self, prefix, device_type):
     """
     Returns the unique ID of running thread.
     :param self: FastHttpUser object
