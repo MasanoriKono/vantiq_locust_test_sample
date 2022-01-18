@@ -1,4 +1,4 @@
 locust
 numpy
 paho-mqtt
-#azure-eventhub
+azure-eventhub

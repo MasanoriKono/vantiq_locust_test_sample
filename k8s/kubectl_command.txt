@@ -3,7 +3,7 @@ cd k8s
 kubectl apply -f .
 
 # forcibly replace the pod (after changing the scenario, etc..)
-kubectl replace --force -f .
+kubectl rollout restart locust
 
 # open locust console from terminal
 open http://localhost:30089

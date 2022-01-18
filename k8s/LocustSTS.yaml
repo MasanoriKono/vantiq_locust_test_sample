@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: locust
-          image: masanorikono/locusttest:latest
+          image: quay.io/masanorikono/locusttest:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: POD_NAME

@@ -1,6 +1,6 @@
 # docker build
-docker build --tag masanorikono/locusttest:latest .
+docker build --tag quay.io/masanorikono/locusttest:latest .
 
 # docker push
-docker login
-docker push masanorikono/locusttest:latest
+docker login quay.io
+docker push quay.io/masanorikono/locusttest:latest
